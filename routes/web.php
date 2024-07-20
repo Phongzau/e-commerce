@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Frontend\UserDashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,11 @@ Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])-
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-
-
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+/** Dashboard */
+
+
+Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+});
