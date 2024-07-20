@@ -1,80 +1,129 @@
-@extends('layouts.app')
+@extends('frontend.layouts.master')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
-
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
-                            <div class="row mb-3">
-                                <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                            {{ old('remember') ? 'checked' : '' }}>
-
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
-                                    </button>
-
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
-                                </div>
-                            </div>
-                        </form>
+    <section id="wsus__breadcrumb">
+        <div class="wsus_breadcrumb_overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>login / register</h4>
+                        <ul>
+                            <li><a href="#">home</a></li>
+                            <li><a href="#">login / register</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!--============================
+                                        BREADCRUMB END
+                                    ==============================-->
+
+
+    <!--============================
+                                        LOGIN/REGISTER PAGE START
+                                    ==============================-->
+    <section id="wsus__login_register">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 m-auto">
+                    <div class="wsus__login_reg_area">
+                        <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-home-tab2" data-bs-toggle="pill"
+                                    data-bs-target="#pills-homes" type="button" role="tab" aria-controls="pills-homes"
+                                    aria-selected="true">login</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-profile-tab2" data-bs-toggle="pill"
+                                    data-bs-target="#pills-profiles" type="button" role="tab"
+                                    aria-controls="pills-profiles" aria-selected="true">signup</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent2">
+                            <div class="tab-pane fade show active" id="pills-homes" role="tabpanel"
+                                aria-labelledby="pills-home-tab2">
+                                <div class="wsus__login">
+
+                                    <form action="{{ route('login') }}" method="POST">
+                                        @csrf
+                                        <div class="wsus__login_input">
+                                            <i class="fas fa-user-tie"></i>
+                                            <input id="email" class="form-control @error('email') is-invalid @enderror"
+                                                name="email" type="email" placeholder="Email"
+                                                value="{{ old('email') }}" autofocus>
+                                        </div>
+                                        <div class="wsus__login_input">
+                                            <i class="fas fa-key"></i>
+                                            <input type="password" name="password"
+                                                class="form-control @error('password') is-invalid @enderror" id="password"
+                                                placeholder="Password">
+                                        </div>
+
+                                        <div class="wsus__login_save">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" name="remember" type="checkbox"
+                                                    id="flexSwitchCheckDefault">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Remember
+                                                    me</label>
+                                            </div>
+                                            <a class="forget_p" href="{{ route('password.request') }}">forget password ?</a>
+                                        </div>
+
+                                        <button class="common_btn" type="submit">login</button>
+                                        {{-- <p class="social_text">Sign in with social account</p>
+                                        <ul class="wsus__login_link">
+                                            <li><a href="#"><i class="fab fa-google"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                        </ul> --}}
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profiles" role="tabpanel"
+                                aria-labelledby="pills-profile-tab2">
+                                <div class="wsus__login">
+                                    {{-- Register --}}
+                                    <form method="POST" action="{{ route('register') }}">
+                                        @csrf
+                                        <div class="wsus__login_input">
+                                            <i class="fas fa-user-tie"></i>
+                                            <input id="name" type="text" name="name"
+                                                class="form-control @error('name') is-invalid @enderror" placeholder="Name"
+                                                value="{{ old('name') }}" autofocus>
+                                        </div>
+
+                                        <div class="wsus__login_input">
+                                            <i class="far fa-envelope"></i>
+                                            <input id="email" class="form-control @error('email') is-invalid @enderror"
+                                                type="email" placeholder="Email" name="email"
+                                                value="{{ old('email') }}">
+                                        </div>
+
+                                        <div class="wsus__login_input">
+                                            <i class="fas fa-key"></i>
+                                            <input id="password"
+                                                class="form-control @error('password') is-invalid @enderror" type="password"
+                                                name="password" placeholder="Password">
+                                        </div>
+
+                                        <div class="wsus__login_input">
+                                            <i class="fas fa-key"></i>
+                                            <input id="password-confirm" type="password" class="form-control"
+                                                name="password_confirmation" placeholder="Confirm Password">
+                                        </div>
+
+                                        <button class="common_btn mt-4" type="submit">signup</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
