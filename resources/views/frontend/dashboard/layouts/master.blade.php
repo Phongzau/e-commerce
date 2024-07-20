@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/ranger_style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery.classycountdown.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/venobox.min.css') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
@@ -96,6 +97,15 @@
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}');
+            @endforeach
+        @endif
+    </script>
 </body>
 
 </html>
