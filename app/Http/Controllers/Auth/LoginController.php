@@ -43,6 +43,8 @@ class LoginController extends Controller
 
         if (Auth::user()->role_id == 1) {
             return redirect()->intended('/admin/dashboard');
+        } else if (Auth::user()->role_id == 2) {
+            return redirect()->intended('/vendor/dashboard');
         }
 
         return $request->wantsJson()
