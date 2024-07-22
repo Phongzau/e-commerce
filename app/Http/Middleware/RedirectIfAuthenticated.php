@@ -24,6 +24,8 @@ class RedirectIfAuthenticated
                 $user = Auth::guard($guard)->user();
                 if ($user->role_id == 1) {
                     return redirect(RouteServiceProvider::ADMIN);
+                } else if ($user->role_id == 2) {
+                    return redirect(RouteServiceProvider::VENDOR);
                 } else {
                     return redirect(RouteServiceProvider::HOME);
                 }
