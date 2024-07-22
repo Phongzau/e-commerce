@@ -12,7 +12,7 @@
                 <div class="col-md-12 ">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Simple Table</h4>
+                            <h4>All Sliders</h4>
                             <div class="card-header-action">
                                 <a href="{{ route('admin.slider.create') }}" class="btn btn-primary"><i
                                         class="fas fa-plus"></i> Create New</a>
