@@ -5,16 +5,16 @@
 
     <section class="section">
         <div class="section-header">
-            <h1>Sub Category</h1>
+            <h1>Child Category</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12 ">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Sub Category</h4>
+                            <h4>All Child Category</h4>
                             <div class="card-header-action">
-                                <a href="{{ route('admin.sub-category.create') }}" class="btn btn-primary"><i
+                                <a href="{{ route('admin.child-category.create') }}" class="btn btn-primary"><i
                                         class="fas fa-plus"></i> Create New</a>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                 console.log(id);
 
                 $.ajax({
-                    url: "{{ route('admin.sub-category.change-status') }}",
+                    url: "{{ route('admin.child-category.change-status') }}",
                     method: 'PUT',
                     data: {
                         status: isChecked,
