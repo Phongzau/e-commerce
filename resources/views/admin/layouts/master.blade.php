@@ -141,11 +141,15 @@
                                         text: data.message,
                                         icon: "success"
                                     });
-                                    window.location.reload();
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 1000);
+
                                 } else if (data.status == 'error') {
                                     Swal.fire({
                                         title: "Cant Delete",
                                         text: data.message,
+                                        icon: "error",
                                     });
                                 }
                             },
