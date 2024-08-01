@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->role_id == 3;
     }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
+    }
 }
