@@ -56,7 +56,7 @@ class ProductVariantItemController extends Controller
     {
         $variantItem = ProductVariantItem::query()->findOrFail($id);
         $request->validate([
-            'name' => ['required', 'max:200', 'unique:product_variant_items,name,' . $variantItem->id],
+            'name' => ['required', 'max:200'],
             'variant_id' => ['required', 'integer'],
             'price' => ['required', 'integer'],
             'status' => ['required'],
