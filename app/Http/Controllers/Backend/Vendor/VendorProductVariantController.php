@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin;
+namespace App\Http\Controllers\Backend\Vendor;
 
-use App\DataTables\ProductVariantDataTable;
+use App\DataTables\VendorProductVariantDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
-use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
 
-class ProductVariantController extends Controller
+class VendorProductVariantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, ProductVariantDataTable $dataTable)
+    public function index(Request $request, VendorProductVariantDataTable $dataTable)
     {
         $product = Product::query()->findOrFail($request->product_id);
-        return $dataTable->render('admin.product.product-variant.index', compact('product'));
+        return $dataTable->render('vendor.product.product-variant.index', compact(['product']));
     }
 
     /**
@@ -25,7 +24,7 @@ class ProductVariantController extends Controller
      */
     public function create()
     {
-        return view('admin.product.product-variant.create');
+        return view('vendor.product.product-variant.create');
     }
 
     /**
@@ -47,7 +46,7 @@ class ProductVariantController extends Controller
 
         toastr('Created Successfully!', 'success');
 
-        return redirect()->route('admin.product-variant.index', ['product_id' => $request->product_id]);
+        return redirect()->route('vendor.product-variant.index', ['product_id' => $request->product_id]);
     }
 
     /**
@@ -64,7 +63,7 @@ class ProductVariantController extends Controller
     public function edit(string $id)
     {
         $productVariant = ProductVariant::query()->findOrFail($id);
-        return view('admin.product.product-variant.edit', compact('productVariant'));
+        return view('vendor.product.product-variant.edit', compact('productVariant'));
     }
 
     /**
@@ -72,18 +71,19 @@ class ProductVariantController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $productVariant = ProductVariant::query()->findOrFail($id);
+        $variantProduct = ProductVariant::query()->findOrFail($id);
         $request->validate([
             'name' => ['required', 'max:200'],
             'status' => ['required'],
         ]);
-        $productVariant->name = $request->name;
-        $productVariant->status = $request->status;
-        $productVariant->save();
+        $variantProduct->name = $request->name;
+        $variantProduct->product_id = $request->product_id;
+        $variantProduct->status = $request->status;
+        $variantProduct->save();
 
         toastr('Updated Successfully!', 'success');
 
-        return redirect()->route('admin.product-variant.index', ['product_id' => $productVariant->product_id]);
+        return redirect()->route('vendor.product-variant.index', ['product_id' => $variantProduct->product_id]);
     }
 
     /**
@@ -92,21 +92,12 @@ class ProductVariantController extends Controller
     public function destroy(string $id)
     {
         $productVariant = ProductVariant::query()->findOrFail($id);
-        $variantItem = ProductVariantItem::query()
-            ->where('product_variant_id', $productVariant->id)
-            ->count();
-        if ($variantItem > 0) {
-            return response([
-                'status' => 'error',
-                'message' => 'This variant contain variant items in it delete the variant items first for delete this variant!',
-            ]);
-        } else {
-            $productVariant->delete();
-            return response([
-                'status' => 'success',
-                'message' => 'Deleted Successfully!',
-            ]);
-        }
+        $productVariant->delete();
+
+        return response([
+            'status' => 'success',
+            'message' => 'Deleted Successfully',
+        ]);
     }
 
     public function changeStatus(Request $request)
