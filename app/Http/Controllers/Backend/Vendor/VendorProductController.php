@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin;
+namespace App\Http\Controllers\Backend\Vendor;
 
-use App\DataTables\ProductDataTable;
+use App\DataTables\VendorProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\Product;
-use App\Models\ProductImageGallery;
-use App\Models\ProductVariant;
 use App\Models\SubCategory;
 use App\Traits\ImageUploadTrait;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
-class ProductController extends Controller
+
+class VendorProductController extends Controller
 {
     use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(ProductDataTable $dataTable)
+    public function index(VendorProductDataTable $dataTable)
     {
-        return $dataTable->render('admin.product.index');
+        return $dataTable->render('vendor.product.index');
     }
 
     /**
@@ -33,8 +32,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::query()->where('status', 1)->get();
-        $brands = Brand::query()->where('status', 1)->get();
-        return view('admin.product.create', compact(['categories', 'brands']));
+        $brands = Brand::query()->get();
+
+        return view('vendor.product.create', compact(['categories', 'brands']));
     }
 
     /**
@@ -73,12 +73,12 @@ class ProductController extends Controller
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
         $product->status = $request->status;
-        $product->is_approved = 1;
+        $product->is_approved = 0;
 
         $product->save();
 
         toastr('Created Successfully!', 'success');
-        return redirect()->route('admin.products.index');
+        return redirect()->route('vendor.products.index');
     }
 
     /**
@@ -97,13 +97,13 @@ class ProductController extends Controller
         $product = Product::query()->findOrFail($id);
         /** Check if it's the owner of the product */
         if ($product->vendor_id != Auth::user()->vendor->id) {
-            abort(404);
+            return redirect()->route('vendor.error.404');
         }
         $categories = Category::query()->where('status', 1)->get();
-        $subCategories = SubCategory::query()->where('status', 1)->where('category_id', $product->category_id)->get();
-        $childCategories = ChildCategory::query()->where('status', 1)->where('sub_category_id', $product->sub_category_id)->get();
+        $subCategories = SubCategory::query()->where('status', 1)->get();
+        $childCategories = ChildCategory::query()->where('status', 1)->get();
         $brands = Brand::query()->where('status', 1)->get();
-        return view('admin.product.edit', compact(['categories', 'brands', 'product', 'subCategories', 'childCategories']));
+        return view('vendor.product.edit', compact(['product', 'categories', 'subCategories', 'childCategories', 'brands']));
     }
 
     /**
@@ -114,8 +114,9 @@ class ProductController extends Controller
         $product = Product::query()->findOrFail($id);
         /** Check if it's the owner of the product */
         if ($product->vendor_id != Auth::user()->vendor->id) {
-            abort(404);
+            return redirect()->route('vendor.error.404');
         }
+
         $request->validate([
             'thumb_image' => ['nullable', 'image', 'max:3000'],
             'name' => ['required', 'max:200', 'unique:products,name,' . $product->id],
@@ -146,12 +147,12 @@ class ProductController extends Controller
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
         $product->status = $request->status;
-        $product->is_approved = 1;
+        $product->is_approved = 0;
 
         $product->save();
 
         toastr('Updated Successfully!', 'success');
-        return redirect()->route('admin.products.index');
+        return redirect()->route('vendor.products.index');
     }
 
     /**
@@ -159,34 +160,9 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $product = Product::query()->findOrFail($id);
-        /** Delete the main product image */
-        $this->deleteImage($product->thumb_image);
-        /** Delete product gallery images */
-        $galleryImages = ProductImageGallery::query()->where('product_id', $product->id)->get();
-        foreach ($galleryImages as $image) {
-            $this->deleteImage($image->image);
-            $image->delete();
-        }
-
-        /** Delete product variant if exists */
-        $variants = ProductVariant::query()->where('product_id', $product->id)->get();
-        foreach ($variants as $variant) {
-            $variant->productVariantItems()->delete();
-            $variant->delete();
-        }
-
-        $product->delete();
-
-        return response([
-            'status' => 'success',
-            'message' => 'Deleted Successfully!',
-        ]);
+        //
     }
 
-    /**
-     * Get SubCategories
-     */
     public function getSubCategories(Request $request)
     {
         $subCategories = SubCategory::query()->where('status', 1)->where('category_id', $request->id)->get();
@@ -197,16 +173,5 @@ class ProductController extends Controller
     {
         $childCategories = ChildCategory::query()->where('status', 1)->where('sub_category_id', $request->id)->get();
         return $childCategories;
-    }
-
-    public function changeStatus(Request $request)
-    {
-        $product = Product::query()->findOrFail($request->id);
-        $product->status = $request->status == 'true' ? 1 : 0;
-        $product->save();
-
-        return response([
-            'message' => 'Status has been updated'
-        ]);
     }
 }

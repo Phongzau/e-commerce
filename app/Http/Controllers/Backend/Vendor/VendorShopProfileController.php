@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin;
+namespace App\Http\Controllers\Backend\Vendor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vendor;
@@ -8,7 +8,7 @@ use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminVendorController extends Controller
+class VendorShopProfileController extends Controller
 {
     use ImageUploadTrait;
     /**
@@ -17,7 +17,7 @@ class AdminVendorController extends Controller
     public function index()
     {
         $profile = Vendor::query()->where('user_id', Auth::user()->id)->first();
-        return view('admin.vendor-profile.index', compact('profile'));
+        return view('vendor.seller-product.index', compact('profile'));
     }
 
     /**
