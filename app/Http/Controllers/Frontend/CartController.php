@@ -20,7 +20,7 @@ class CartController extends Controller
                 'status' => 'error',
                 'message' => 'Product stock out',
             ]);
-        } else if ($product->qty < $request->qty) {
+        } elseif ($product->qty < $request->qty) {
             return response([
                 'status' => 'error',
                 'message' => 'Quantity not available in our stock',
@@ -39,7 +39,6 @@ class CartController extends Controller
             }
         }
 
-
         /** Check Discount */
         $productPrice = 0;
         if (checkDiscount($product)) {
@@ -47,7 +46,6 @@ class CartController extends Controller
         } else {
             $productPrice += $product->price;
         }
-
 
         $cartData = [];
         $cartData['id'] = $product->id;
@@ -88,7 +86,7 @@ class CartController extends Controller
                 'status' => 'error',
                 'message' => 'Product stock out',
             ]);
-        } else if ($product->qty < $request->qty) {
+        } elseif ($product->qty < $request->qty) {
             return response([
                 'status' => 'error',
                 'message' => 'Quantity not available in our stock',
@@ -129,7 +127,7 @@ class CartController extends Controller
 
         return response([
             'status' => 'success',
-            'message' => 'Cart cleared successfully!'
+            'message' => 'Cart cleared successfully!',
         ]);
     }
 
