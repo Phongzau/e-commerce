@@ -229,18 +229,23 @@
                                         @foreach ($product->productVariants as $variant)
                                             @if ($variant->status != 0)
                                                 <div style="margin-bottom: 15px" class="col-xl-6 col-sm-6">
-                                                    <h5 class="mb-2">{{ $variant->name }}:</h5>
-                                                    <select class="select_2" name="variants_items[]">
-                                                        <option>default select</option>
-                                                        @foreach ($variant->productVariantItems as $variantItem)
-                                                            @if ($variantItem->status != 0)
-                                                                <option value="{{ $variantItem->id }}"
-                                                                    {{ $variantItem->is_default == 1 ? 'selected' : '' }}>
-                                                                    {{ $variantItem->name }} (${{ $variantItem->price }})
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
+                                                    @if (count($variant->productVariantItems) > 0)
+                                                        <h5 class="mb-2">{{ $variant->name }}:</h5>
+                                                        <select class="select_2" name="variants_items[]">
+
+                                                            <option>default select</option>
+
+                                                            @foreach ($variant->productVariantItems as $variantItem)
+                                                                @if ($variantItem->status != 0)
+                                                                    <option value="{{ $variantItem->id }}"
+                                                                        {{ $variantItem->is_default == 1 ? 'selected' : '' }}>
+                                                                        {{ $variantItem->name }}
+                                                                        (${{ $variantItem->price }})
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    @endif
                                                 </div>
                                             @endif
                                         @endforeach
@@ -764,10 +769,9 @@
                             getCartCount();
                         } else if (data.status == 'error') {
                             toastr.error(data.message);
-
                         }
                     },
-                    error: function(data) {
+                    error: function(error) {
 
                     }
                 })
