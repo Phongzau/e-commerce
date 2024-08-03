@@ -5,11 +5,14 @@ use App\Http\Controllers\Backend\Admin\AdminVendorController;
 use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
+use App\Http\Controllers\Backend\Admin\CouponController;
 use App\Http\Controllers\Backend\Admin\ProductController;
 use App\Http\Controllers\Backend\Admin\ProductImageGalleryController;
 use App\Http\Controllers\Backend\Admin\ProductVariantController;
 use App\Http\Controllers\Backend\Admin\ProductVariantItemController;
 use App\Http\Controllers\Backend\Admin\ProfileController;
+use App\Http\Controllers\Backend\Admin\SellerProductController;
+use App\Http\Controllers\Backend\Admin\ShippingRuleController;
 use App\Http\Controllers\Backend\Admin\SliderController;
 use App\Http\Controllers\Backend\Admin\SubCategoryController;
 use Illuminate\Support\Facades\Route;
@@ -67,3 +70,16 @@ Route::post('product-variant-item', [ProductVariantItemController::class, 'store
 Route::get('product-variant-item-edit/{id}', [ProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');
 Route::put('product-variant-item/{id}', [ProductVariantItemController::class, 'update'])->name('product-variant-item.update');
 Route::delete('product-variant-item/{id}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');
+
+/** Seller Product Routes */
+Route::get('seller-products', [SellerProductController::class, 'index'])->name('seller-products.index');
+Route::put('change-approve-status', [SellerProductController::class, 'changeApproveStatus'])->name('change-approve-status');
+Route::get('seller-pending-products', [SellerProductController::class, 'pendingProducts'])->name('seller-pending-products');
+
+/** Coupon Routes*/
+Route::put('coupon/change-status', [CouponController::class, 'changeStatus'])->name('coupon.change-status');
+Route::resource('coupons', CouponController::class);
+
+/** Shipping Rule Routes*/
+Route::put('shipping-rule/change-status', [ShippingRuleController::class, 'changeStatus'])->name('shipping-rule.change-status');
+Route::resource('shipping-rule', ShippingRuleController::class);

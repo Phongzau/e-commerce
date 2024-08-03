@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Vendor\VendorController;
 use App\Http\Controllers\Backend\Vendor\VendorProductController;
 use App\Http\Controllers\Backend\Vendor\VendorProductImageGalleryController;
 use App\Http\Controllers\Backend\Vendor\VendorProductVariantController;
+use App\Http\Controllers\Backend\Vendor\VendorProductVariantItemController;
 use App\Http\Controllers\Backend\Vendor\VendorProfileController;
 use App\Http\Controllers\Backend\Vendor\VendorShopProfileController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,7 @@ Route::post('/profile', [VendorProfileController::class, 'updatePassword'])->nam
 Route::resource('shop-profile', VendorShopProfileController::class);
 
 /** Product Routes */
+Route::put('product/change-status', [VendorProductController::class, 'changeStatus'])->name('product.change-status');
 Route::get('product/get-subcategories', [VendorProductController::class, 'getSubCategories'])->name('product.get-subcategories');
 Route::get('product/get-childcategories', [VendorProductController::class, 'getChildCategories'])->name('product.get-childcategories');
 Route::resource('products', VendorProductController::class);
@@ -34,3 +36,12 @@ Route::resource('product-image-gallery', VendorProductImageGalleryController::cl
 /** Product Variant Routes */
 Route::put('product-variant/change-status', [VendorProductVariantController::class, 'changeStatus'])->name('product-variant.change-status');
 Route::resource('product-variant', VendorProductVariantController::class);
+
+/** Product Variant Item Routes */
+Route::put('product-variant-item/change-status', [VendorProductVariantItemController::class, 'changeStatus'])->name('product-variant-item.change-status');
+Route::get('product-variant-item/{product_id}/{variant_id}', [VendorProductVariantItemController::class, 'index'])->name('product-variant-item.index');
+Route::get('product-variant-item/{variant_id}', [VendorProductVariantItemController::class, 'create'])->name('product-variant-item.create');
+Route::post('product-variant-item', [VendorProductVariantItemController::class, 'store'])->name('product-variant-item.store');
+Route::get('product-variant-item-edit/{id}', [VendorProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');
+Route::put('product-variant-item/{id}', [VendorProductVariantItemController::class, 'update'])->name('product-variant-item.update');
+Route::delete('product-variant-item/{id}', [VendorProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');

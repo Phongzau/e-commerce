@@ -36,7 +36,7 @@
                 console.log(id);
 
                 $.ajax({
-                    url: "{{ route('admin.category.change-status') }}",
+                    url: "{{ route('vendor.product.change-status') }}",
                     method: 'PUT',
                     data: {
                         status: isChecked,

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <title>Sazao || e-Commerce HTML Template</title>
     <link rel="icon" type="image/png" href="{{ asset('frontend/assets/images/favicon.png') }}">
@@ -131,7 +132,7 @@
     <script src="{{ asset('frontend/assets/js/venobox.min.js') }}"></script>
     <!--classycountdown js-->
     <script src="{{ asset('frontend/assets/js/jquery.classycountdown.j') }}s"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
     {{-- Toastr js --}}
@@ -143,6 +144,7 @@
             @endforeach
         @endif
     </script>
+    @stack('scripts')
 </body>
 
 </html>
