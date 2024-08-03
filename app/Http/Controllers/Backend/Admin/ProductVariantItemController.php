@@ -27,7 +27,7 @@ class ProductVariantItemController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'max:200', 'unique:product_variant_items,name'],
+            'name' => ['required', 'max:200'],
             'variant_id' => ['required', 'integer'],
             'price' => ['required', 'integer'],
             'status' => ['required'],

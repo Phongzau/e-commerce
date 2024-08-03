@@ -6,7 +6,9 @@ use App\DataTables\VendorProductVariantDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VendorProductVariantController extends Controller
 {
@@ -16,6 +18,10 @@ class VendorProductVariantController extends Controller
     public function index(Request $request, VendorProductVariantDataTable $dataTable)
     {
         $product = Product::query()->findOrFail($request->product_id);
+        /** Check if it's the owner of the product */
+        if ($product->vendor_id != Auth::user()->vendor->id) {
+            return redirect()->route('vendor.error.404');
+        }
         return $dataTable->render('vendor.product.product-variant.index', compact(['product']));
     }
 
@@ -63,6 +69,10 @@ class VendorProductVariantController extends Controller
     public function edit(string $id)
     {
         $productVariant = ProductVariant::query()->findOrFail($id);
+        /** Check if it's the owner of the product */
+        if ($productVariant->product->vendor_id != Auth::user()->vendor->id) {
+            return redirect()->route('vendor.error.404');
+        }
         return view('vendor.product.product-variant.edit', compact('productVariant'));
     }
 
@@ -77,7 +87,6 @@ class VendorProductVariantController extends Controller
             'status' => ['required'],
         ]);
         $variantProduct->name = $request->name;
-        $variantProduct->product_id = $request->product_id;
         $variantProduct->status = $request->status;
         $variantProduct->save();
 
@@ -92,12 +101,25 @@ class VendorProductVariantController extends Controller
     public function destroy(string $id)
     {
         $productVariant = ProductVariant::query()->findOrFail($id);
-        $productVariant->delete();
-
-        return response([
-            'status' => 'success',
-            'message' => 'Deleted Successfully',
-        ]);
+        /** Check if it's the owner of the product */
+        if ($productVariant->product->vendor_id != Auth::user()->vendor->id) {
+            return redirect()->route('vendor.error.404');
+        }
+        $variantItem = ProductVariantItem::query()
+            ->where('product_variant_id', $productVariant->id)
+            ->count();
+        if ($variantItem > 0) {
+            return response([
+                'status' => 'error',
+                'message' => 'This variant contain variant items in it delete the variant items first for delete this variant!',
+            ]);
+        } else {
+            $productVariant->delete();
+            return response([
+                'status' => 'success',
+                'message' => 'Deleted Successfully!',
+            ]);
+        }
     }
 
     public function changeStatus(Request $request)

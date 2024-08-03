@@ -7,13 +7,15 @@
 
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
+                    <a href="{{ route('vendor.products.index') }}" class="btn btn-warning mb-4"><i
+                            class="far fa-long-arrow-left"></i> Back</a>
                     <div class="dashboard_content mt-2 mt-md-0">
                         <h3><i class="far fa-user"></i> Product Variant</h3>
                         <h5>Product: {{ $product->name }}</h5>
                         <div class="create_button">
                             <a href="{{ route('vendor.product-variant.create', ['product_id' => $product->id]) }}"
                                 class="btn btn-primary"><i class="fas fa-plus"></i>
-                                Create Product</a>
+                                Create Variant</a>
                         </div>
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area">

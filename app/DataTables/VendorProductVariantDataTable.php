@@ -24,7 +24,7 @@ class VendorProductVariantDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $variantItem = "<a class='btn btn-info me-1' href='" . route('admin.product-variant-item.index', ['product_id' => request()->product_id, 'variant_id' => $query->id]) . "'><i class='far fa-edit me-1'></i>Variant Items</a>";
+                $variantItem = "<a class='btn btn-info me-1' href='" . route('vendor.product-variant-item.index', ['product_id' => request()->product_id, 'variant_id' => $query->id]) . "'><i class='far fa-edit me-1'></i>Variant Items</a>";
                 $editBtn = "<a class='btn btn-primary me-1' href='" . route('vendor.product-variant.edit', $query->id) . "'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a class='btn btn-danger delete-item ml-2' href='" . route('vendor.product-variant.destroy', $query->id) . "'><i class='far fa-trash-alt'></i></a>";
                 return $variantItem . $editBtn . $deleteBtn;
@@ -69,7 +69,7 @@ class VendorProductVariantDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([Button::make('excel'), Button::make('csv'), Button::make('pdf'), Button::make('print'), Button::make('reset'), Button::make('reload')]);
     }

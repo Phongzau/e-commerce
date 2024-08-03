@@ -96,9 +96,6 @@ class ProductController extends Controller
     {
         $product = Product::query()->findOrFail($id);
         /** Check if it's the owner of the product */
-        if ($product->vendor_id != Auth::user()->vendor->id) {
-            abort(404);
-        }
         $categories = Category::query()->where('status', 1)->get();
         $subCategories = SubCategory::query()->where('status', 1)->where('category_id', $product->category_id)->get();
         $childCategories = ChildCategory::query()->where('status', 1)->where('sub_category_id', $product->sub_category_id)->get();
@@ -113,9 +110,6 @@ class ProductController extends Controller
     {
         $product = Product::query()->findOrFail($id);
         /** Check if it's the owner of the product */
-        if ($product->vendor_id != Auth::user()->vendor->id) {
-            abort(404);
-        }
         $request->validate([
             'thumb_image' => ['nullable', 'image', 'max:3000'],
             'name' => ['required', 'max:200', 'unique:products,name,' . $product->id],
@@ -131,7 +125,6 @@ class ProductController extends Controller
         $product->thumb_image = $this->updateImage($request, 'thumb_image', 'uploads', $product->thumb_image);
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
-        $product->vendor_id = Auth::user()->vendor->id;
         $product->category_id = $request->category_id;
         $product->sub_category_id = $request->sub_category_id;
         $product->child_category_id = $request->child_category_id;
@@ -146,7 +139,7 @@ class ProductController extends Controller
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
         $product->status = $request->status;
-        $product->is_approved = 1;
+
 
         $product->save();
 
