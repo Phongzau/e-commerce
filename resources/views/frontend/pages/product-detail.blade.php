@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('content')
-    <section class="product_popup_modal">
+    {{-- <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -136,7 +136,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
 
@@ -206,10 +206,13 @@
                                     item)
                                 </p>
                             @endif
+
                             @if (checkDiscount($product))
-                                <h4>${{ $product->offer_price }} <del>${{ $product->price }}</del></h4>
+                                <h4>{{ $settings->currency_icon }}{{ $product->offer_price }}
+                                    <del>{{ $settings->currency_icon }}{{ $product->price }}</del>
+                                </h4>
                             @else
-                                <h4>${{ $product->price }}</h4>
+                                <h4>{{ $settings->currency_icon }}{{ $product->price }}</h4>
                             @endif
 
                             <p class="review">
@@ -233,14 +236,12 @@
                                                         <h5 class="mb-2">{{ $variant->name }}:</h5>
                                                         <select class="select_2" name="variants_items[]">
 
-                                                            <option>default select</option>
-
                                                             @foreach ($variant->productVariantItems as $variantItem)
                                                                 @if ($variantItem->status != 0)
                                                                     <option value="{{ $variantItem->id }}"
                                                                         {{ $variantItem->is_default == 1 ? 'selected' : '' }}>
                                                                         {{ $variantItem->name }}
-                                                                        (${{ $variantItem->price }})
+                                                                        ({{ $settings->currency_icon }}{{ $variantItem->price }})
                                                                     </option>
                                                                 @endif
                                                             @endforeach
@@ -747,50 +748,4 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $('.shopping-cart-form').on('submit', function(e) {
-                e.preventDefault();
-                let formData = $(this).serialize();
-                console.log(formData);
-
-                $.ajax({
-                    method: 'POST',
-                    data: formData,
-                    url: "{{ route('add-to-cart') }}",
-                    success: function(data) {
-                        if (data.status == 'success') {
-                            toastr.success(data.message);
-                            getCartCount();
-                        } else if (data.status == 'error') {
-                            toastr.error(data.message);
-                        }
-                    },
-                    error: function(error) {
-
-                    }
-                })
-            })
-
-            // Get Count Cart
-            function getCartCount() {
-                $.ajax({
-                    method: 'GET',
-                    url: "{{ route('cart-count') }}",
-                    success: function(data) {
-                        $('#cart-count').text(data);
-                    },
-                    error: function(data) {
-
-                    }
-                })
-            }
-
-        })
-    </script>
 @endpush

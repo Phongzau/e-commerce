@@ -18,13 +18,13 @@
         </div>
     </section>
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        BREADCRUMB END
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            BREADCRUMB END
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ==============================-->
 
 
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        CART VIEW PAGE START
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            CART VIEW PAGE START
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ==============================-->
     <section id="wsus__cart_view">
         <div class="container">
             <div class="row">
@@ -60,26 +60,28 @@
                                     </tr>
                                     @foreach ($cartItems as $cart)
                                         <tr class="d-flex">
-                                            <td class="wsus__pro_img"><img src="{{ asset($cart->options->image) }}"
-                                                    alt="product" class="img-fluid w-100">
+                                            <td style="padding-left: 10px" class="wsus__pro_img"><img
+                                                    src="{{ asset($cart->options->image) }}" alt="product"
+                                                    class="img-fluid w-100">
                                             </td>
 
                                             <td class="wsus__pro_name">
                                                 <p>{{ $cart->name }}</p>
                                                 @foreach ($cart->options->variants as $key => $variant)
                                                     <span>{{ $key }}: {{ $variant['name'] }}
-                                                        (${{ $variant['price'] }})
+                                                        ({{ $settings->currency_icon }}{{ $variant['price'] }})
                                                     </span>
                                                 @endforeach
                                             </td>
 
                                             <td class="wsus__pro_tk">
-                                                <h6>${{ $cart->price }}</h6>
+                                                <h6>{{ $settings->currency_icon }}{{ $cart->price }}</h6>
                                             </td>
 
                                             <td class="wsus__pro_tk">
                                                 <h6 id="{{ $cart->rowId }}">
-                                                    ${{ ($cart->price + $cart->options->variants_total) * $cart->qty }}</h6>
+                                                    {{ $settings->currency_icon }}{{ ($cart->price + $cart->options->variants_total) * $cart->qty }}
+                                                </h6>
                                             </td>
 
                                             <td class="wsus__pro_select">
@@ -114,19 +116,22 @@
                 <div class="col-xl-3">
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>
-                        <p>subtotal: <span id="sub_total">${{ getCartTotal() }}</span></p>
-                        {{-- <p>delivery: <span>$00.00</span></p>
-                        <p>discount: <span>$10.00</span></p> --}}
-                        {{-- <p class="total"><span >total:</span> <span>$134.00</span></p> --}}
-                        <p class="total"><span>total:</span> <span id="total">${{ getCartTotal() }}</span></p>
+                        <p>subtotal: <span id="sub_total">{{ $settings->currency_icon }}{{ getCartTotal() }}</span></p>
+                        <p>coupon(-): <span id="discount">{{ $settings->currency_icon }}{{ getCartDiscount() }}</span>
+                        </p>
+                        <p class="total"><span>total:</span> <span
+                                id="cart_total">{{ $settings->currency_icon }}{{ getMainCartTotal() }}</span></p>
+                        {{-- <p class="total"><span>total:</span> <span
+                                id="total">{{ $settings->currency_icon }}{{ getCartTotal() }}</span></p> --}}
 
-                        <form>
-                            <input type="text" placeholder="Coupon Code">
+                        <form id="coupon_form">
+                            <input type="text" placeholder="Coupon Code" name="coupon_code"
+                                value="{{ session()->has('coupon') ? session()->get('coupon')['coupon_code'] : '' }}">
                             <button type="submit" class="common_btn">apply</button>
                         </form>
                         <a class="common_btn mt-4 w-100 text-center" href="{{ route('user.checkout') }}">checkout</a>
-                        <a class="common_btn mt-1 w-100 text-center" href="product_grid_view.html"><i
-                                class="fab fa-shopify"></i> go shop</a>
+                        <a class="common_btn mt-1 w-100 text-center" href="{{ url('/') }}"><i
+                                class="fab fa-shopify"></i> Keep Shopping</a>
                     </div>
                 </div>
             </div>
@@ -163,8 +168,8 @@
         </div>
     </section>
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          CART VIEW PAGE END
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              CART VIEW PAGE END
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ==============================-->
 @endsection
 
 @push('scripts')
@@ -192,11 +197,13 @@
                     success: function(data) {
                         if (data.status == 'success') {
                             let productId = '#' + rowId;
-                            let totalAmount = `$` + data.product_total;
+                            let totalAmount = `{{ $settings->currency_icon }}` + data
+                                .product_total;
                             $(productId).text(totalAmount);
 
                             toastr.success(data.message);
-                            renderCartSubTotal()
+                            renderCartSubTotal();
+                            calculateCouponDiscount();
                         } else if (data.status == 'error') {
                             toastr.error(data.message);
                         }
@@ -227,11 +234,13 @@
                     success: function(data) {
                         if (data.status == 'success') {
                             let productId = '#' + rowId;
-                            let totalAmount = `$` + data.product_total;
+                            let totalAmount = `{{ $settings->currency_icon }}` + data
+                                .product_total;
                             $(productId).text(totalAmount);
 
                             toastr.success(data.message);
-                            renderCartSubTotal()
+                            renderCartSubTotal();
+                            calculateCouponDiscount();
                         } else if (data.status == 'error') {
                             toastr.error(data.message);
                         }
@@ -281,7 +290,7 @@
                     url: "{{ route('cart.product-total') }}",
                     method: 'GET',
                     success: function(data) {
-                        let totalAmount = `$` + data;
+                        let totalAmount = `{{ $settings->currency_icon }}` + data;
                         $('#sub_total').text(totalAmount);
                     },
                     error: function(data) {
@@ -290,6 +299,44 @@
                 })
             }
 
+            // Apply coupon on cart
+            $('#coupon_form').on('submit', function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+                console.log(formData);
+
+                $.ajax({
+                    url: "{{ route('apply-coupon') }}",
+                    method: 'GET',
+                    data: formData,
+                    success: function(data) {
+                        if (data.status == 'error') {
+                            toastr.error(data.message);
+                        } else if (data.status == 'success') {
+                            toastr.success(data.message);
+                            calculateCouponDiscount();
+                        }
+                    },
+                    error: function(data) {
+
+                    },
+                })
+            })
+
+            // Calculate discount amount
+            function calculateCouponDiscount() {
+                $.ajax({
+                    url: "{{ route('coupon-calculation') }}",
+                    method: 'GET',
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            $('#discount').text('{{ $settings->currency_icon }}' + data.discount);
+                            $('#cart_total').text('{{ $settings->currency_icon }}' + data.cart_total);
+                        }
+                    },
+                    error: function(data) {},
+                })
+            }
         })
     </script>
 @endpush
