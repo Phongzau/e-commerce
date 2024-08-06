@@ -8,7 +8,7 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="menu-header">Dashboard</li>
-                    <li class="dropdown active">
+                    <li class="dropdown {{ setActive(['admin.dashboard']) }}">
                         <a href="{{ route('admin.dashboard') }}" class="nav-link "><i
                                 class="fas fa-fire"></i><span>Dashboard</span></a>
                     </li>
@@ -53,15 +53,19 @@
                     </li>
 
                     <li
-                        class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.coupons.*', 'admin.shipping-rule.*']) }}">
+                        class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.coupons.*', 'admin.shipping-rule.*', 'admin.flash-sale.index']) }}">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                 class="fas fa-columns"></i> <span>Ecommerce</span></a>
                         <ul class="dropdown-menu">
+
                             <li class="{{ setActive(['admin.coupons.*']) }}"><a class="nav-link"
                                     href="{{ route('admin.coupons.index') }}">Coupon</a>
                             </li>
                             <li class="{{ setActive(['admin.shipping-rule.*']) }}"><a class="nav-link"
                                     href="{{ route('admin.shipping-rule.index') }}">Shipping Rule</a>
+                            </li>
+                            <li class="{{ setActive(['admin.flash-sale.index']) }}"><a class="nav-link"
+                                    href="{{ route('admin.flash-sale.index') }}">Flash sale</a>
                             </li>
                             <li class="{{ setActive(['admin.vendor-profile.*']) }}"><a class="nav-link"
                                     href="{{ route('admin.vendor-profile.index') }}">Vendor
@@ -80,6 +84,10 @@
 
                         </ul>
                     </li>
+
+                    <li class="{{ setActive(['admin.setting.index']) }}"><a class="nav-link"
+                            href="{{ route('admin.setting.index') }}"><i
+                                class="far fa-square"></i><span>Settings</span></a></li>
 
                     {{-- <li class="dropdown">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i

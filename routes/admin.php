@@ -6,12 +6,14 @@ use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
 use App\Http\Controllers\Backend\Admin\CouponController;
+use App\Http\Controllers\Backend\Admin\FlashSaleController;
 use App\Http\Controllers\Backend\Admin\ProductController;
 use App\Http\Controllers\Backend\Admin\ProductImageGalleryController;
 use App\Http\Controllers\Backend\Admin\ProductVariantController;
 use App\Http\Controllers\Backend\Admin\ProductVariantItemController;
 use App\Http\Controllers\Backend\Admin\ProfileController;
 use App\Http\Controllers\Backend\Admin\SellerProductController;
+use App\Http\Controllers\Backend\Admin\SettingController;
 use App\Http\Controllers\Backend\Admin\ShippingRuleController;
 use App\Http\Controllers\Backend\Admin\SliderController;
 use App\Http\Controllers\Backend\Admin\SubCategoryController;
@@ -83,3 +85,16 @@ Route::resource('coupons', CouponController::class);
 /** Shipping Rule Routes*/
 Route::put('shipping-rule/change-status', [ShippingRuleController::class, 'changeStatus'])->name('shipping-rule.change-status');
 Route::resource('shipping-rule', ShippingRuleController::class);
+
+/** Flash Sale Routes */
+Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale.index');
+Route::put('flash-sale', [FlashSaleController::class, 'update'])->name('flash-sale.update');
+Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.add-product');
+Route::put('flash-sale/show-at-home/change-status', [FlashSaleController::class, 'changeShowAtHomeStatus'])->name('flash-sale.show-at-home.change-status');
+Route::put('flash-sale/change-status', [FlashSaleController::class, 'changeStatus'])->name('flash-sale.change-status');
+Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name('flash-sale.destroy');
+
+
+/** Setting Routes */
+Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+Route::put('general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting-update');

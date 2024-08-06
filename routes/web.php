@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\CheckOutController;
+use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontendProductController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
@@ -27,6 +29,8 @@ Auth::routes();
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 
+Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
+
 /** Dashboard */
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
@@ -39,6 +43,7 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 
     /** Checkout Routes */
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');
+    Route::post('checkout/address-create', [CheckOutController::class, 'createAddress'])->name('checkout.address.create');
 });
 
 /** Product Routes */
@@ -52,3 +57,8 @@ Route::get('clear-cart', [CartController::class, 'clearCart'])->name('clear.cart
 Route::get('cart/remove-product/{rowId}', [CartController::class, 'removeProduct'])->name('cart.remove-product');
 Route::get('cart-count', [CartController::class, 'getCartCount'])->name('cart-count');
 Route::get('cart/product-total', [CartController::class, 'cartTotal'])->name('cart.product-total');
+Route::get('cart-products', [CartController::class, 'getCartProducts'])->name('cart-products');
+Route::post('cart/remove-sidebar-product', [CartController::class, 'removeSidebarProduct'])->name('cart.remove-sidebar-product');
+
+Route::get('apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
+Route::get('coupon-calculation', [CartController::class, 'couponCalculation'])->name('coupon-calculation');

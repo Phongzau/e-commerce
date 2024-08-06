@@ -1,6 +1,7 @@
 <?php
 
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Session;
 
 /** Set Sidebar item active */
 
@@ -36,4 +37,69 @@ function getCartTotal()
         $total += ($product->price + $product->options->variants_total) * $product->qty;
     }
     return $total;
+}
+
+/** Calculator discount product */
+function calculateDiscountPercent($originalPrice, $discountPrice)
+{
+    $discountAmount = $originalPrice - $discountPrice;
+    $discountPercent = ($discountAmount / $originalPrice) * 100;
+    return round($discountPercent);
+}
+
+/** Check the product type */
+function productType($type)
+{
+    switch ($type) {
+        case 'new_arrival':
+            return "New";
+            break;
+        case 'featured_product':
+            return "Featured";
+            break;
+        case 'top_product':
+            return "Top";
+            break;
+        case 'best_product':
+            return "Best";
+            break;
+        default:
+            return "";
+            break;
+    }
+}
+
+// Get Cart Total
+function getMainCartTotal()
+{
+    if (Session::has('coupon')) {
+        $coupon = Session::get('coupon');
+        $subTotal = getCartTotal();
+        if ($coupon['discount_type'] === 'amount') {
+            $total = $subTotal - $coupon['discount'];
+        } else if ($coupon['discount_type'] === 'percent') {
+            $discount = $subTotal * $coupon['discount'] / 100;
+            $total = $subTotal - $discount;
+        }
+        return $total;
+    } else {
+        return getCartTotal();
+    }
+}
+
+
+function getCartDiscount()
+{
+    if (Session::has('coupon')) {
+        $coupon = Session::get('coupon');
+        $subTotal = getCartTotal();
+        if ($coupon['discount_type'] === 'amount') {
+            return $coupon['discount'];
+        } else if ($coupon['discount_type'] === 'percent') {
+            $discount = $subTotal * $coupon['discount'] / 100;
+            return $discount;
+        }
+    } else {
+        return 0;
+    }
 }

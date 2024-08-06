@@ -2,8 +2,8 @@
 
 @section('content')
     <!--==========================
-                                                                                                                              PRODUCT MODAL VIEW START
-                                                                                                                            ===========================-->
+                                                                                                                                      PRODUCT MODAL VIEW START
+                                                                                                                                    ===========================-->
     <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -147,32 +147,32 @@
         </div>
     </section>
     <!--==========================
-                                                                                                                              PRODUCT MODAL VIEW END
-                                                                                                                            ===========================-->
+                                                                                                                                      PRODUCT MODAL VIEW END
+                                                                                                                                    ===========================-->
 
 
     <!--============================
-                                                                                                                                BANNER PART 2 START
-                                                                                                                            ==============================-->
+                                                                                                                                        BANNER PART 2 START
+                                                                                                                                    ==============================-->
     @include('frontend.home.sections.banner-slider')
     <!--============================
-                                                                                                                                BANNER PART 2 END
-                                                                                                                            ==============================-->
+                                                                                                                                        BANNER PART 2 END
+                                                                                                                                    ==============================-->
 
 
     <!--============================
-                                                                                                                                FLASH SELL START
-                                                                                                                            ==============================-->
+                                                                                                                                        FLASH SELL START
+                                                                                                                                    ==============================-->
     @include('frontend.home.sections.flash-sale')
     <!--============================
-                                                                                                                                FLASH SELL END
-                                                                                                                            ==============================-->
+                                                                                                                                        FLASH SELL END
+                                                                                                                                    ==============================-->
 
 
     <!--============================
-                                                                                                                               MONTHLY TOP PRODUCT START
-                                                                                                                            ==============================-->
-    @include('frontend.home.sections.top-category-product')
+                                                                                                                                       MONTHLY TOP PRODUCT START
+                                                                                                                                    ==============================-->
+    {{-- @include('frontend.home.sections.top-category-product')
     <!--============================
                                                                                                                                MONTHLY TOP PRODUCT END
                                                                                                                             ==============================-->
@@ -255,5 +255,5 @@
     @include('frontend.home.sections.blog')
     <!--============================
                                                                                                                                 HOME BLOGS END
-                                                                                                                            ==============================-->
+                                                                                                                            ==============================--> --}}
 @endsection

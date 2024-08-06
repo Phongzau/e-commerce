@@ -55,27 +55,34 @@
                     <div class="col-xl-4 col-lg-5">
                         <div class="wsus__order_details" id="sticky_sidebar">
                             <p class="wsus__product">shipping Methods</p>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                    value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    free shipping
-                                    <span>(10 - 12 days)</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                    value="option2">
-                                <label class="form-check-label" for="exampleRadios2">
-                                    express shipping
-                                    <span>(5 - 10 days)</span>
-                                </label>
-                            </div>
+                            @foreach ($shippingMethods as $method)
+                                @if ($method->type == 'min_cost' && getCartTotal() >= $method->min_cost)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios"
+                                            id="exampleRadios1" value="option1" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            {{ $method->name }}
+                                            <span>cost: {{ $settings->currency_icon }}{{ $method->cost }}</span>
+                                        </label>
+                                    </div>
+                                @elseif($method->type == 'flat_cost')
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios"
+                                            id="exampleRadios1" value="option1" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            {{ $method->name }}
+                                            <span>cost: {{ $settings->currency_icon }}{{ $method->cost }}</span>
+                                        </label>
+                                    </div>
+                                @endif
+                            @endforeach
                             <div class="wsus__order_details_summery">
-                                <p>subtotal: <span>$120.00</span></p>
-                                <p>shipping fee: <span>$20.00</span></p>
-                                <p>tax: <span>$00.00</span></p>
-                                <p><b>total:</b> <span><b>$140.00</b></span></p>
+                                <p>subtotal: <span>{{ $settings->currency_icon }}{{ getCartTotal() }}</span></p>
+                                <p>shipping free(+): <span>{{ $settings->currency_icon }}0</span></p>
+                                <p>coupon(-): <span>{{ $settings->currency_icon }}{{ getCartDiscount() }}</span></p>
+                                <p><b>total:</b>
+                                    <span><b>{{ $settings->currency_icon }}{{ getMainCartTotal() }}</b></span>
+                                </p>
                             </div>
                             <div class="terms_area">
                                 <div class="form-check">
@@ -86,7 +93,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <a href="payment.html" class="common_btn">Place Order</a>
+                            <a type="submit" class="common_btn">Place Order</a>
                         </div>
                     </div>
                 </div>
@@ -104,75 +111,63 @@
                     </div>
                     <div class="modal-body p-0">
                         <div class="wsus__check_form p-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="First Name">
+                            <form action="{{ route('user.checkout.address.create') }}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="wsus__check_single_form">
+                                            <input type="text" name="name" value="{{ old('name') }}"
+                                                placeholder="Name *">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="wsus__check_single_form">
+                                            <input type="text" name="phone" value="{{ old('phone') }}"
+                                                placeholder="Phone *">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="wsus__check_single_form">
+                                            <input type="email" name="email" value="{{ old('email') }}"
+                                                placeholder="Email *">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="wsus__check_single_form">
+                                            <select class="select_2" name="country">
+                                                <option value="AL">Country / Region *</option>
+                                                @foreach (config('settings.country_list') as $key => $country)
+                                                    <option {{ old('country') == $country ? 'selected' : '' }}
+                                                        value="{{ $country }}">{{ $country }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="wsus__check_single_form">
+                                            <input type="text" name="city" value="{{ old('city') }}"
+                                                placeholder="Town / City *">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="wsus__check_single_form">
+                                            <input type="text" name="zip" value="{{ old('zip') }}"
+                                                placeholder="Zip *">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="wsus__check_single_form">
+                                            <input type="text" name="address" value="{{ old('address') }}"
+                                                placeholder="Address *">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="wsus__check_single_form">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="Last Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="Company Name (Optional)">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <select class="select_2" name="state">
-                                            <option value="AL">Country / Region *</option>
-                                            <option value="">dhaka</option>
-                                            <option value="">barisal</option>
-                                            <option value="">khulna</option>
-                                            <option value="">rajshahi</option>
-                                            <option value="">bogura</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="Street Address *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="Apartment, suite, unit, etc. (optional)">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="Town / City *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="State *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="Zip *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="text" placeholder="Phone *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__check_single_form">
-                                        <input type="email" placeholder="Email *">
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__check_single_form">
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
