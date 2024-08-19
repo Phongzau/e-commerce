@@ -7,6 +7,8 @@ use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
 use App\Http\Controllers\Backend\Admin\CouponController;
 use App\Http\Controllers\Backend\Admin\FlashSaleController;
+use App\Http\Controllers\Backend\Admin\PaymentSettingController;
+use App\Http\Controllers\Backend\Admin\PaypalSettingController;
 use App\Http\Controllers\Backend\Admin\ProductController;
 use App\Http\Controllers\Backend\Admin\ProductImageGalleryController;
 use App\Http\Controllers\Backend\Admin\ProductVariantController;
@@ -98,3 +100,7 @@ Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name(
 /** Setting Routes */
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting-update');
+
+/** Payment Setting Routes */
+Route::get('payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');
+Route::resource('paypal-setting', PaypalSettingController::class);
