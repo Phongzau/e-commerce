@@ -1,14 +1,14 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
-use App\Http\Controllers\Backend\Admin\CheckOutController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontendProductController;
-use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
+use App\Http\Controllers\Frontend\CheckOutController;
+use App\Http\Controllers\Frontend\PaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +44,14 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     /** Checkout Routes */
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');
     Route::post('checkout/address-create', [CheckOutController::class, 'createAddress'])->name('checkout.address.create');
+    Route::post('checkout/form-submit', [CheckOutController::class, 'checkOutFormSubmit'])->name('checkout.form-submit');
+    /** Payment Routes */
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment');
+    Route::get('payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+    /** Paypal Routes */
+    Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
+    Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
+    Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 });
 
 /** Product Routes */
