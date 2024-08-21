@@ -119,3 +119,14 @@ function getFinalPayableAmount()
 {
     return getMainCartTotal() + getShippingFee();
 }
+
+// get order discount
+function getOrderDiscount($discountType, $subTotal, $discount)
+{
+    if ($discountType === 'amount') {
+        return $discount;
+    } else if ($discountType === 'percent') {
+        $discountValue = $subTotal * $discount / 100;
+        return $discountValue;
+    }
+}

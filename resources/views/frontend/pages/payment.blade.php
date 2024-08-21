@@ -34,8 +34,8 @@
                                     aria-controls="v-pills-paypal" aria-selected="true">Paypal</button>
 
                                 <button class="nav-link common_btn" id="v-pills-profile-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-stripe" type="button" role="tab"
-                                    aria-controls="v-pills-stripe" aria-selected="false">Stripe</button>
+                                    data-bs-target="#v-pills-cod" type="button" role="tab" aria-controls="v-pills-cod"
+                                    aria-selected="false">COD</button>
 
                             </div>
                         </div>
@@ -108,12 +108,12 @@
                             </div>
 
 
-                            <div class="tab-pane fade show" id="v-pills-stripe" role="tabpanel"
+                            <div class="tab-pane fade show" id="v-pills-cod" role="tabpanel"
                                 aria-labelledby="v-pills-home-tab">
                                 <div class="row">
                                     <div class="col-xl-12 m-auto">
                                         <div class="wsus__payment_area">
-                                            <button class="nav-link common_btn">Pay with Stripe</button>
+                                            <button class="nav-link common_btn">COD</button>
                                         </div>
                                     </div>
                                 </div>
