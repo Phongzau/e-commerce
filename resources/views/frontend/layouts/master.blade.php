@@ -131,7 +131,7 @@
     <!--venobox js-->
     <script src="{{ asset('frontend/assets/js/venobox.min.js') }}"></script>
     <!--classycountdown js-->
-    <script src="{{ asset('frontend/assets/js/jquery.classycountdown.j') }}s"></script>
+    <script src="{{ asset('frontend/assets/js/jquery.classycountdown.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
