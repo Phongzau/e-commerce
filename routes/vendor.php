@@ -49,3 +49,5 @@ Route::delete('product-variant-item/{id}', [VendorProductVariantItemController::
 
 /** Order Routes */
 Route::get('orders', [VendorOrderController::class, 'index'])->name('orders');
+Route::get('orders/show/{id}', [VendorOrderController::class, 'show'])->name('orders.show');
+Route::get('orders/status/{id}', [VendorOrderController::class, 'orderStatus'])->name('orders.status');
