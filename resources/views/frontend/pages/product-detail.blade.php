@@ -235,7 +235,7 @@
                                                     @if (count($variant->productVariantItems) > 0)
                                                         <h5 class="mb-2">{{ $variant->name }}:</h5>
                                                         <select class="select_2" name="variants_items[]">
-
+                                                            <option value="">Select</option>
                                                             @foreach ($variant->productVariantItems as $variantItem)
                                                                 @if ($variantItem->status != 0)
                                                                     <option value="{{ $variantItem->id }}"
