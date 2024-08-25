@@ -9572,3 +9572,7 @@ a:not([href]):not([class]):hover {
     border-radius: 30px;
     transition: 0.3s linear;
 }
+
+.add_cart {
+    border: none !important;
+}

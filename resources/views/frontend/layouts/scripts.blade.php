@@ -91,6 +91,7 @@
                 success: function(data) {
                     $(`#mini_cart_${rowId}`).remove();
                     getSidebarCartSubtotal()
+                    getCartCount();
                     if ($('.mini_cart_wrapper').find('li').length === 0) {
                         $('.mini_cart_wrapper').html(
                             '<li class="text-center">Cart Is Empty!</li>')

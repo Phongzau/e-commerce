@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
 use App\Http\Controllers\Backend\Admin\CouponController;
 use App\Http\Controllers\Backend\Admin\FlashSaleController;
+use App\Http\Controllers\Backend\Admin\HomePageSettingController;
 use App\Http\Controllers\Backend\Admin\OrderController;
 use App\Http\Controllers\Backend\Admin\PaymentSettingController;
 use App\Http\Controllers\Backend\Admin\PaypalSettingController;
@@ -103,6 +104,12 @@ Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name(
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting-update');
 
+/** Home page setting routes */
+Route::get('home-page-setting', [HomePageSettingController::class, 'index'])->name('home-page-setting');
+Route::put('popular-category-section', [HomePageSettingController::class, 'updatePopularCategorySection'])->name('popular-category-section');
+Route::put('product-slider-section-one', [HomePageSettingController::class, 'updateProductSliderSectionOne'])->name('product-slider-section-one');
+Route::put('product-slider-section-two', [HomePageSettingController::class, 'updateProductSliderSectionTwo'])->name('product-slider-section-two');
+Route::put('product-slider-section-three', [HomePageSettingController::class, 'updateProductSliderSectionThree'])->name('product-slider-section-three');
 /** Order routes */
 Route::get('payment-status', [OrderController::class, 'changePaymentStatus'])->name('payment.status');
 Route::get('order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');

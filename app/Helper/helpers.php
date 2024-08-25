@@ -2,6 +2,7 @@
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 /** Set Sidebar item active */
 
@@ -129,4 +130,10 @@ function getOrderDiscount($discountType, $subTotal, $discount)
         $discountValue = $subTotal * $discount / 100;
         return $discountValue;
     }
+}
+
+// limit text
+function limitText($text, $limit = 20)
+{
+    return Str::limit($text, $limit);
 }
