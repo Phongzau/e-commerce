@@ -27,18 +27,23 @@
                              --}}
                         @foreach ($categories as $category)
                             <li><a class="{{ count($category->subCategories) > 0 ? 'wsus__droap_arrow' : '' }}"
-                                    href="#"><i class="{{ $category->icon }}"></i>
+                                    href="{{ route('products.index', ['category' => $category->slug]) }}"><i
+                                        class="{{ $category->icon }}"></i>
                                     {{ $category->name }}
                                 </a>
                                 @if (count($category->subCategories) > 0)
                                     <ul class="wsus_menu_cat_droapdown">
                                         @foreach ($category->subCategories as $subCate)
-                                            <li><a href="#">{{ $subCate->name }} <i
+                                            <li><a
+                                                    href="{{ route('products.index', ['sub_category' => $subCate->slug]) }}">{{ $subCate->name }}
+                                                    <i
                                                         class="{{ count($subCate->childCategories) > 0 ? 'fas fa-angle-right' : '' }}"></i></a>
                                                 @if (count($subCate->childCategories) > 0)
                                                     <ul class="wsus__sub_category">
                                                         @foreach ($subCate->childCategories as $childCate)
-                                                            <li><a href="#">{{ $childCate->name }}</a> </li>
+                                                            <li><a
+                                                                    href="{{ route('products.index', ['child_category' => $childCate->slug]) }}">{{ $childCate->name }}</a>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
@@ -126,13 +131,14 @@
                         <li><a href="vendor.html">vendor</a></li>
                         <li><a href="blog.html">blog</a></li>
                         <li><a href="daily_deals.html">campain</a></li>
-                        <li class="wsus__relative_li"><a href="#">pages <i class="fas fa-caret-down"></i></a>
+                        <li class="wsus__relative_li"><a href="{{ route('products.index') }}">product <i
+                                    class="fas fa-caret-down"></i></a>
                             <ul class="wsus__menu_droapdown">
                                 <li><a href="404.html">404</a></li>
                                 <li><a href="faqs.html">faq</a></li>
                                 <li><a href="invoice.html">invoice</a></li>
                                 <li><a href="about_us.html">about</a></li>
-                                <li><a href="product_grid_view.html">product</a></li>
+                                <li><a href="{{ route('products.index') }}">product</a></li>
                                 <li><a href="check_out.html">check out</a></li>
                                 <li><a href="team.html">team</a></li>
                                 <li><a href="change_password.html">change password</a></li>
