@@ -38,8 +38,9 @@
                                         <li><a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#hot-deal-{{ $product->id }}"><i
                                                     class="far fa-eye"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="far fa-random"></i></a>
+                                        <li><a href="#" class="add_to_wishlist" data-id="{{ $product->id }}"><i
+                                                    class="far fa-heart"></i></a></li>
+                                        {{-- <li><a href="#"><i class="far fa-random"></i></a> --}}
                                     </ul>
                                     <div class="wsus__product_details">
                                         <a class="wsus__category" href="#">{{ $product->category->name }} </a>
@@ -104,7 +105,8 @@
                         <div class="col-xl-6 col-lg-6">
                             <div class="wsus__single_banner_content banner_1">
                                 <div class="wsus__single_banner_img">
-                                    <img src="images/single_banner_44.jpg" alt="banner" class="img-fluid w-100">
+                                    <img src="{{ asset('frontend/assets/images/single_banner_44.jpg') }}"
+                                        alt="banner" class="img-fluid w-100">
                                 </div>
                                 <div class="wsus__single_banner_text">
                                     <h6>sell on <span>35% off</span></h6>
@@ -118,8 +120,8 @@
                                 <div class="col-12">
                                     <div class="wsus__single_banner_content single_banner_2">
                                         <div class="wsus__single_banner_img">
-                                            <img src="images/single_banner_55.jpg" alt="banner"
-                                                class="img-fluid w-100">
+                                            <img src="{{ asset('frontend/assets/images/single_banner_55.jpg') }}"
+                                                alt="banner" class="img-fluid w-100">
                                         </div>
                                         <div class="wsus__single_banner_text">
                                             <h6>New Collection</h6>
@@ -131,8 +133,8 @@
                                 <div class="col-12 mt-lg-4">
                                     <div class="wsus__single_banner_content">
                                         <div class="wsus__single_banner_img">
-                                            <img src="images/single_banner_66.jpg" alt="banner"
-                                                class="img-fluid w-100">
+                                            <img src="{{ asset('frontend/assets/images/single_banner_66.jpg') }}"
+                                                alt="banner" class="img-fluid w-100">
                                         </div>
                                         <div class="wsus__single_banner_text">
                                             <h6>sell on <span>42% off</span></h6>
@@ -271,8 +273,10 @@
                                                     <li><button type="submit" class="add_cart" href="#">add to
                                                             cart</button></li>
                                                     <li><a class="buy_now" href="#">buy now</a></li>
-                                                    <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-random"></i></a></li>
+                                                    <li><a href="#" class="add_to_wishlist"
+                                                            data-id="{{ $product->id }}"><i
+                                                                class="fal fa-heart"></i></a></li>
+                                                    {{-- <li><a href="#"><i class="far fa-random"></i></a></li> --}}
                                                 </ul>
                                             </form>
                                             <p class="brand_model"><span>brand :</span>

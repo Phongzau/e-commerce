@@ -2,8 +2,8 @@
 
 @section('content')
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                BREADCRUMB START
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                BREADCRUMB START
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                BREADCRUMB END
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                BREADCRUMB END
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ==============================-->
 
 
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                PRODUCT PAGE START
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                PRODUCT PAGE START
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ==============================-->
     <section id="wsus__product_page">
         <div class="container">
             <div class="row">
@@ -194,8 +194,10 @@
                                                     <li><a href="#" data-bs-toggle="modal"
                                                             data-bs-target="#product-{{ $product->id }}"><i
                                                                 class="far fa-eye"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-random"></i></a>
+                                                    <li><a href="#" class="add_to_wishlist"
+                                                            data-id="{{ $product->id }}"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                    {{-- <li><a href="#"><i class="far fa-random"></i></a> --}}
                                                 </ul>
                                                 <div class="wsus__product_details">
                                                     <a class="wsus__category"
@@ -336,8 +338,10 @@
                                                                     CART</button>
                                                             </form>
                                                         </li>
-                                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                                        <li><a href="#"><i class="far fa-random"></i></a>
+                                                        <li><a href="#" class="add_to_wishlist"
+                                                                data-id="{{ $product->id }}"><i
+                                                                    class="far fa-heart"></i></a></li>
+                                                        {{-- <li><a href="#"><i class="far fa-random"></i></a> --}}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -368,8 +372,8 @@
         </div>
     </section>
     <!--============================
-            PRODUCT PAGE END
-            ==============================-->
+                            PRODUCT PAGE END
+                            ==============================-->
     @foreach ($products as $product)
         <section class="product_popup_modal">
             <div class="modal fade" id="product-{{ $product->id }}" tabindex="-1" aria-hidden="true">
@@ -486,8 +490,10 @@
                                                 <li><button type="submit" class="add_cart" href="#">add to
                                                         cart</button></li>
                                                 <li><a class="buy_now" href="#">buy now</a></li>
-                                                <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-random"></i></a></li>
+                                                <li><a href="#" class="add_to_wishlist"
+                                                        data-id="{{ $product->id }}"><i class="fal fa-heart"></i></a>
+                                                </li>
+                                                {{-- <li><a href="#"><i class="far fa-random"></i></a></li> --}}
                                             </ul>
                                         </form>
                                         <p class="brand_model"><span>brand :</span>
