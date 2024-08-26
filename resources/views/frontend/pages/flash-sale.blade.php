@@ -80,10 +80,10 @@
                                         <img src="{{ asset($product->thumb_image) }}" alt="product"
                                             class="img-fluid w-100 img_1" />
                                         <img src="
-                        @if (isset($product->productImageGalleries[0]->image)) {{ asset($product->productImageGalleries[0]->image) }}
-                        @else
-                            {{ asset($product->thumb_image) }} @endif
-                        "
+                                        @if (isset($product->productImageGalleries[0]->image)) {{ asset($product->productImageGalleries[0]->image) }}
+                                        @else
+                                            {{ asset($product->thumb_image) }} @endif
+                                        "
                                             alt="product" class="img-fluid w-100 img_2" />
                                     </a>
                                     <ul class="wsus__single_pro_icon">
