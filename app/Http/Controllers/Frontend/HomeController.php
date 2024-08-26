@@ -9,7 +9,9 @@ use App\Models\FlashSaleItem;
 use App\Models\HomePageSetting;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,7 @@ class HomeController extends Controller
         $categoryProductSliderSectionOne = HomePageSetting::query()->where('key', 'product_slider_section_one')->first();
         $categoryProductSliderSectionTwo = HomePageSetting::query()->where('key', 'product_slider_section_two')->first();
         $categoryProductSliderSectionThree = HomePageSetting::query()->where('key', 'product_slider_section_three')->first();
+        $wishLists = Wishlist::query()->where('user_id', Auth::user()->id)->get();
         return view('frontend.home.home', compact([
             'sliders',
             'flashSaleDate',
@@ -33,7 +36,8 @@ class HomeController extends Controller
             'typeBaseProducts',
             'categoryProductSliderSectionOne',
             'categoryProductSliderSectionTwo',
-            'categoryProductSliderSectionThree'
+            'categoryProductSliderSectionThree',
+            'wishLists'
         ]));
     }
 
