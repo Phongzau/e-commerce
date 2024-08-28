@@ -7,6 +7,10 @@ use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
 use App\Http\Controllers\Backend\Admin\CouponController;
 use App\Http\Controllers\Backend\Admin\FlashSaleController;
+use App\Http\Controllers\Backend\Admin\FooterGridThreeController;
+use App\Http\Controllers\Backend\Admin\FooterGridTwoController;
+use App\Http\Controllers\Backend\Admin\FooterInfoController;
+use App\Http\Controllers\Backend\Admin\FooterSocialController;
 use App\Http\Controllers\Backend\Admin\HomePageSettingController;
 use App\Http\Controllers\Backend\Admin\OrderController;
 use App\Http\Controllers\Backend\Admin\PaymentSettingController;
@@ -103,6 +107,8 @@ Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name(
 /** Setting Routes */
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting-update');
+Route::put('email-setting-update', [SettingController::class, 'emailConfigSettingUpdate'])->name('email-setting-update');
+
 
 /** Home page setting routes */
 Route::get('home-page-setting', [HomePageSettingController::class, 'index'])->name('home-page-setting');
@@ -110,6 +116,18 @@ Route::put('popular-category-section', [HomePageSettingController::class, 'updat
 Route::put('product-slider-section-one', [HomePageSettingController::class, 'updateProductSliderSectionOne'])->name('product-slider-section-one');
 Route::put('product-slider-section-two', [HomePageSettingController::class, 'updateProductSliderSectionTwo'])->name('product-slider-section-two');
 Route::put('product-slider-section-three', [HomePageSettingController::class, 'updateProductSliderSectionThree'])->name('product-slider-section-three');
+
+/** Footer Routes */
+Route::put('footer-socials/change-status', [FooterSocialController::class, 'footerSocialChangeStatus'])->name('footer-socials.change-status');
+Route::put('footer-grid-two/change-status', [FooterGridTwoController::class, 'footerGridTwoChangeStatus'])->name('footer-grid-two.change-status');
+Route::put('footer-grid-three/change-status', [FooterGridThreeController::class, 'footerGridTwoChangeStatus'])->name('footer-grid-three.change-status');
+Route::resource('footer-info', FooterInfoController::class);
+Route::resource('footer-socials', FooterSocialController::class);
+Route::put('footer-grid-two/change-title', [FooterGridTwoController::class, 'footerGridTwoChangeTitle'])->name('footer-grid-two.change-title');
+Route::put('footer-grid-three/change-title', [FooterGridThreeController::class, 'footerGridThreeChangeTitle'])->name('footer-grid-three.change-title');
+Route::resource('footer-grid-two', FooterGridTwoController::class);
+Route::resource('footer-grid-three', FooterGridThreeController::class);
+
 /** Order routes */
 Route::get('payment-status', [OrderController::class, 'changePaymentStatus'])->name('payment.status');
 Route::get('order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
