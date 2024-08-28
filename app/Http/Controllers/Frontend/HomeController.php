@@ -26,7 +26,6 @@ class HomeController extends Controller
         $categoryProductSliderSectionOne = HomePageSetting::query()->where('key', 'product_slider_section_one')->first();
         $categoryProductSliderSectionTwo = HomePageSetting::query()->where('key', 'product_slider_section_two')->first();
         $categoryProductSliderSectionThree = HomePageSetting::query()->where('key', 'product_slider_section_three')->first();
-        $wishLists = Wishlist::query()->where('user_id', Auth::user()->id)->get();
         return view('frontend.home.home', compact([
             'sliders',
             'flashSaleDate',
@@ -37,7 +36,6 @@ class HomeController extends Controller
             'categoryProductSliderSectionOne',
             'categoryProductSliderSectionTwo',
             'categoryProductSliderSectionThree',
-            'wishLists'
         ]));
     }
 
