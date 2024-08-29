@@ -145,6 +145,14 @@
                         </ul>
                     </li>
 
+                    <li class="{{ setActive(['admin.subscribers.index']) }}"><a class="nav-link"
+                            href="{{ route('admin.subscribers.index') }}"><i
+                                class="far fa-square"></i><span>Advertisement</span></a></li>
+
+                    <li class="{{ setActive(['admin.subscribers.index']) }}"><a class="nav-link"
+                            href="{{ route('admin.subscribers.index') }}"><i
+                                class="far fa-square"></i><span>Subscribers</span></a></li>
+
                     <li class="{{ setActive(['admin.setting.index']) }}"><a class="nav-link"
                             href="{{ route('admin.setting.index') }}"><i
                                 class="far fa-square"></i><span>Settings</span></a></li>
