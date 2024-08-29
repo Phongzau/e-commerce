@@ -59,8 +59,8 @@
                         Get all the latest information on Events.</p>
                     <form action="{{ route('newsletter-request') }}" method="POST" id="newsletter">
                         @csrf
-                        <input name="email" type="text" placeholder="Email">
-                        <button type="submit" class="common_btn">subscribe</button>
+                        <input name="email" type="text" placeholder="Email" class="newsletter_email">
+                        <button type="submit" class="common_btn subscribe_btn">subscribe</button>
                     </form>
                     <div class="footer_payment">
                         <p>We're using safe payment for :</p>
