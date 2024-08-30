@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\ProductVariantItem;
@@ -70,13 +71,16 @@ class CartController extends Controller
     /** Show cart page */
     public function cartDetails()
     {
+        $cart_page_banner_section = Advertisement::query()->where('key', 'cart_page_banner_section')->first();
+        $cart_page_banner_section = json_decode($cart_page_banner_section?->value);
+
         $cartItems = Cart::content();
         if (count($cartItems) === 0) {
             Session::forget('coupon');
             toastr('Please add some products in your cart for view the cart page', 'warning', 'Cart is empry!');
             return redirect()->route('home');
         }
-        return view('frontend.pages.cart-detail', compact(['cartItems']));
+        return view('frontend.pages.cart-detail', compact(['cartItems', 'cart_page_banner_section']));
     }
 
     /** Update cart */

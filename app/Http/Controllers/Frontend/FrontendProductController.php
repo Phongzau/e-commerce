@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
@@ -93,12 +94,21 @@ class FrontendProductController extends Controller
                 'status' => 1,
                 'is_approved' => 1,
             ])
-                ->orderBy('id', 'desc')
+                ->when($request->has('range'), function ($query) use ($request) {
+                    $price = explode(';', $request->range);
+                    $form = $price[0];
+                    $to = $price[1];
+
+                    return $query->where('price', '>=', $form)->where('price', '<=', $to);
+                })
                 ->paginate(12);
         }
         $categories = Category::query()->where('status', 1)->get();
         $brands = Brand::query()->where('status', 1)->get();
-        return view('frontend.pages.product', compact('products', 'categories', 'brands'));
+        $product_page_banner = Advertisement::query()->where('key', 'product_page_banner_section')->first();
+        $product_page_banner = json_decode($product_page_banner?->value);
+
+        return view('frontend.pages.product', compact('products', 'categories', 'brands', 'product_page_banner'));
     }
 
     public function showProduct(string $slug)
