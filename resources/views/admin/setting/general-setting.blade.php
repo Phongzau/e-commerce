@@ -6,19 +6,19 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="">Site Name</label>
-                    <input type="text" name="site_name" value="{{ $generalSettings->site_name }}"
+                    <input type="text" name="site_name" value="{{ @$generalSettings->site_name }}"
                         class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Layout</label>
                     <select name="layout" class="form-control" id="">
-                        <option {{ $generalSettings->layout == 'LTR' ? 'selected' : '' }} value="LTR">LTR</option>
-                        <option {{ $generalSettings->layout == 'RTL' ? 'selected' : '' }} value="RTL">RTL</option>
+                        <option {{ @$generalSettings->layout == 'LTR' ? 'selected' : '' }} value="LTR">LTR</option>
+                        <option {{ @$generalSettings->layout == 'RTL' ? 'selected' : '' }} value="RTL">RTL</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="">Contact Email</label>
-                    <input type="text" name="contact_email" value="{{ $generalSettings->contact_email }}"
+                    <input type="text" name="contact_email" value="{{ @$generalSettings->contact_email }}"
                         class="form-control">
                 </div>
                 <div class="form-group">
@@ -26,14 +26,14 @@
                     <select name="currency_name" style="width: 100%" class="select2" id="">
                         <option value="">Select</option>
                         @foreach (config('settings.currency_list') as $currency)
-                            <option {{ $generalSettings->currency_name == $currency ? 'selected' : '' }}
+                            <option {{ @$generalSettings->currency_name == $currency ? 'selected' : '' }}
                                 value="{{ $currency }}">{{ $currency }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="">Currency Icon</label>
-                    <input type="text" name="currency_icon" value="{{ $generalSettings->currency_icon }}"
+                    <input type="text" name="currency_icon" value="{{ @$generalSettings->currency_icon }}"
                         class="form-control">
                 </div>
                 <div class="form-group">
@@ -41,7 +41,7 @@
                     <select name="time_zone" style="width: 100%" class="select2" id="">
                         <option value="">Select</option>
                         @foreach (config('settings.time_zone') as $key => $timeZone)
-                            <option {{ $generalSettings->time_zone == $key ? 'selected' : '' }}
+                            <option {{ @$generalSettings->time_zone == $key ? 'selected' : '' }}
                                 value="{{ $key }}">
                                 {{ $key }}</option>
                         @endforeach
