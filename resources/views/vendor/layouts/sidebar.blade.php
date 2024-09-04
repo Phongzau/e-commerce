@@ -18,6 +18,10 @@
                         href="{{ route('vendor.products.index') }}"><i class="far fa-user"></i> Products</a>
                 </li>
 
+                <li><a class="{{ setActive(['vendor.review.index']) ? 'active' : '' }}"
+                        href="{{ route('vendor.review.index') }}"><i class="far fa-user"></i> Reviews</a>
+                </li>
+
                 <li><a class="{{ setActive(['vendor.shop-profile.*']) ? 'active' : '' }}"
                         href="{{ route('vendor.shop-profile.index') }}"><i class="far fa-user"></i> Seller Profile</a>
                 </li>

@@ -8,6 +8,8 @@ use App\Http\Controllers\Backend\Vendor\VendorProductVariantController;
 use App\Http\Controllers\Backend\Vendor\VendorProductVariantItemController;
 use App\Http\Controllers\Backend\Vendor\VendorProfileController;
 use App\Http\Controllers\Backend\Vendor\VendorShopProfileController;
+use App\Http\Controllers\Backend\VendorProductReviewController;
+use App\Http\Controllers\Frontend\UserProductReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', [VendorController::class, 'dashboard'])->name('dashboard');
@@ -51,3 +53,6 @@ Route::delete('product-variant-item/{id}', [VendorProductVariantItemController::
 Route::get('orders', [VendorOrderController::class, 'index'])->name('orders');
 Route::get('orders/show/{id}', [VendorOrderController::class, 'show'])->name('orders.show');
 Route::get('orders/status/{id}', [VendorOrderController::class, 'orderStatus'])->name('orders.status');
+
+/** Reviews routes */
+Route::get('review', [VendorProductReviewController::class, 'index'])->name('review.index');
