@@ -43,6 +43,7 @@
                                 if (array_keys($lastKey)[0] === 'category') {
                                     $category = \App\Models\Category::query()->findOrFail($lastKey['category']);
                                     $products[] = \App\Models\Product::query()
+                                        ->with('reviews')
                                         ->where([['category_id', $category->id], ['status', 1]])
                                         ->orderBy('id', 'DESC')
                                         ->take(12)
@@ -50,6 +51,7 @@
                                 } elseif (array_keys($lastKey)[0] === 'sub_category') {
                                     $category = \App\Models\SubCategory::query()->findOrFail($lastKey['sub_category']);
                                     $products[] = \App\Models\Product::query()
+                                        ->with('reviews')
                                         ->where([['sub_category_id', $category->id], ['status', 1]])
                                         ->orderBy('id', 'DESC')
                                         ->take(12)
@@ -59,6 +61,7 @@
                                         $lastKey['child_category'],
                                     );
                                     $products[] = \App\Models\Product::query()
+                                        ->with('reviews')
                                         ->where([['child_category_id', $category->id], ['status', 1]])
                                         ->orderBy('id', 'DESC')
                                         ->take(12)
@@ -92,11 +95,18 @@
                                     <div class="wsus__hot_deals__single_text">
                                         <h5>{!! limitText($item->name) !!}</h5>
                                         <p class="wsus__rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
+                                            @php
+                                                $avgRating = $item->reviews()->avg('rating');
+                                                $fullRating = round($avgRating);
+                                            @endphp
+
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= $fullRating)
+                                                    <i class="fas fa-star"></i>
+                                                @else
+                                                    <i class="far fa-star"></i>
+                                                @endif
+                                            @endfor
                                         </p>
                                         @if (checkDiscount($item))
                                             <p class="wsus__tk">{{ $settings->currency_icon }}{{ $item->offer_price }}

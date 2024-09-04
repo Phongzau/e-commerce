@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\CheckOutController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserOrderController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +67,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('wishlist/remove-product/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
     /** Product Review Routes */
+    Route::post('review', [ReviewController::class, 'create'])->name('review.create');
+
+    /** User product review */
+    Route::get('reviews', [ReviewController::class, 'index'])->name('review.index');
 });
 
 /** Product Routes */

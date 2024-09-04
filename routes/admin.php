@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\AdminProductReviewController;
 use App\Http\Controllers\Backend\Admin\AdminVendorController;
 use App\Http\Controllers\Backend\Admin\AdvertisementController;
 use App\Http\Controllers\Backend\Admin\BrandController;
@@ -83,6 +84,10 @@ Route::post('product-variant-item', [ProductVariantItemController::class, 'store
 Route::get('product-variant-item-edit/{id}', [ProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');
 Route::put('product-variant-item/{id}', [ProductVariantItemController::class, 'update'])->name('product-variant-item.update');
 Route::delete('product-variant-item/{id}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');
+
+/** Admin product reviews */
+Route::get('review', [AdminProductReviewController::class, 'index'])->name('review.index');
+Route::put('review/change-status', [AdminProductReviewController::class, 'changeStatus'])->name('review.change-status');
 
 /** Seller Product Routes */
 Route::get('seller-products', [SellerProductController::class, 'index'])->name('seller-products.index');
