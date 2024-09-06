@@ -130,7 +130,6 @@
                         </li>
                         <li><a href="{{ route('vendor.index') }}">vendor</a></li>
                         <li><a href="blog.html">blog</a></li>
-                        <li><a href="daily_deals.html">campain</a></li>
                         <li class="wsus__relative_li"><a href="{{ route('products.index') }}">product <i
                                     class="fas fa-caret-down"></i></a>
                             <ul class="wsus__menu_droapdown">
@@ -151,6 +150,8 @@
                         </li>
                         <li><a href="track_order.html">track order</a></li>
                         <li><a href="daily_deals.html">daily deals</a></li>
+                        <li><a href="{{ route('about.index') }}">about</a></li>
+                        <li><a href="{{ route('terms-and-condition') }}">term and condition</a></li>
                     </ul>
                     <ul class="wsus__menu_item wsus__menu_item_right">
                         <li><a href="contact.html">contact</a></li>
