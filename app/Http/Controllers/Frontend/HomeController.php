@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
 use App\Models\Brand;
+use App\Models\Category;
+use App\Models\ChildCategory;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\HomePageSetting;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\SubCategory;
+use App\Models\Vendor;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,5 +94,27 @@ class HomeController extends Controller
             ->get();
 
         return $typeBaseProducts;
+    }
+
+    public function vendorPage()
+    {
+        $vendors = Vendor::query()->where('status', 1)->paginate(20);
+        return view('frontend.pages.vendor', compact('vendors'));
+    }
+
+    public function vendorProductPage(string $id)
+    {
+        $vendor = Vendor::query()->findOrFail($id);
+        $products = Product::query()->where([
+            'status' => 1,
+            'is_approved' => 1,
+            'vendor_id' => $id,
+        ])
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
+
+        $categories = Category::query()->where('status', 1)->get();
+        $brands = Brand::query()->where('status', 1)->get();
+        return view('frontend.pages.vendor-product', compact('products', 'categories', 'brands', 'vendor'));
     }
 }

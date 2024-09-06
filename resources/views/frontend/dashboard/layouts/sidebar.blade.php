@@ -8,24 +8,34 @@
             <ul class="dashboard_link">
                 <li><a class="active" href="{{ route('user.dashboard') }}"><i
                             class="fas fa-tachometer"></i>Dashboard</a></li>
+                @if (auth()->user()->role_id === 2)
+                    <li><a href="{{ route('vendor.dashboard') }}"><i class="fas fa-tachometer"></i>Go to Vendor
+                            Dashboard</a>
+                    </li>
+                @endif
                 <li><a href="{{ route('user.orders.index') }}"><i class="fas fa-list-ul"></i> Orders</a></li>
                 <li><a href="dsahboard_download.html"><i class="far fa-cloud-download-alt"></i> Downloads</a></li>
                 <li><a href="{{ route('user.review.index') }}"><i class="far fa-star"></i> Reviews</a></li>
                 <li><a href="dsahboard_wishlist.html"><i class="far fa-heart"></i> Wishlist</a></li>
                 <li><a href="{{ route('user.profile') }}"><i class="far fa-user"></i> My Profile</a></li>
                 <li><a href="{{ route('user.address.index') }}"><i class="fal fa-gift-card"></i> Addresses</a></li>
-                <li>
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        <i class="far fa-sign-out-alt">
-                        </i>
-                        {{ __('Logout') }}
-                    </a>
+                @if (auth()->user()->role_id !== 2)
+                    <li><a href="{{ route('user.vendor-request.index') }}"><i class="far fa-user"></i> Request To Be
+                            Vendor</a></li>
+                    <li>
+                @endif
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                    <i class="far fa-sign-out-alt">
+                    </i>
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
                 </li>
             </ul>
         </div>
