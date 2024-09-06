@@ -12,7 +12,7 @@
                         <h3><i class="far fa-user"></i> Became to Vendor Today</h3>
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area">
-
+                                {!! $vendorCondition->content !!}
                             </div>
                         </div>
                         <br>

@@ -41,6 +41,18 @@ class LoginController extends Controller
             return $response;
         }
 
+        if ($request->user()->status === 'inactive') {
+            $this->guard()->logout();
+            $request->session()->regenerateToken();
+            if ($response = $this->loggedOut($request)) {
+                return $response;
+            }
+            toastr('Account has been banned from website please connect with support!', 'error', 'Account Banned!');
+            return $request->wantsJson()
+                ? new JsonResponse([], 204)
+                : redirect('/');
+        }
+
         if (Auth::user()->role_id == 1) {
             return redirect()->intended('/admin/dashboard');
         } else if (Auth::user()->role_id == 2) {
