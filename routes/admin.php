@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
 use App\Http\Controllers\Backend\Admin\CouponController;
+use App\Http\Controllers\Backend\Admin\CustomerListController;
 use App\Http\Controllers\Backend\Admin\FlashSaleController;
 use App\Http\Controllers\Backend\Admin\FooterGridThreeController;
 use App\Http\Controllers\Backend\Admin\FooterGridTwoController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\Backend\Admin\SliderController;
 use App\Http\Controllers\Backend\Admin\SubCategoryController;
 use App\Http\Controllers\Backend\Admin\SubscribersController;
 use App\Http\Controllers\Backend\Admin\TransactionController;
+use App\Http\Controllers\Backend\Admin\VendorListController;
 use App\Http\Controllers\Backend\Admin\VendorRequestController;
 use Illuminate\Support\Facades\Route;
 
@@ -143,6 +145,15 @@ Route::put('advertisement/cartpage-banner', [AdvertisementController::class, 'ca
 Route::get('vendor-requests', [VendorRequestController::class, 'index'])->name('vendor-requests.index');
 Route::get('vendor-requests/{id}/show', [VendorRequestController::class, 'show'])->name('vendor-requests.show');
 Route::put('vendor-requests/{id}/change-status', [VendorRequestController::class, 'changeStatus'])->name('vendor-requests.change-status');
+
+/** Customer list routes */
+Route::get('customers', [CustomerListController::class, 'index'])->name('customers.index');
+Route::put('customers/change-status', [CustomerListController::class, 'changeStatus'])->name('customers.change-status');
+
+/** Vendor list routes */
+Route::get('vendors', [VendorListController::class, 'index'])->name('vendors.index');
+Route::put('vendors/change-status', [VendorListController::class, 'changeStatus'])->name('vendors.change-status');
+
 
 /** Footer Routes */
 Route::put('footer-socials/change-status', [FooterSocialController::class, 'footerSocialChangeStatus'])->name('footer-socials.change-status');
