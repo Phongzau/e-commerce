@@ -4,11 +4,11 @@ use App\Http\Controllers\Backend\Vendor\VendorController;
 use App\Http\Controllers\Backend\Vendor\VendorOrderController;
 use App\Http\Controllers\Backend\Vendor\VendorProductController;
 use App\Http\Controllers\Backend\Vendor\VendorProductImageGalleryController;
+use App\Http\Controllers\Backend\Vendor\VendorProductReviewController;
 use App\Http\Controllers\Backend\Vendor\VendorProductVariantController;
 use App\Http\Controllers\Backend\Vendor\VendorProductVariantItemController;
 use App\Http\Controllers\Backend\Vendor\VendorProfileController;
 use App\Http\Controllers\Backend\Vendor\VendorShopProfileController;
-use App\Http\Controllers\Backend\VendorProductReviewController;
 use App\Http\Controllers\Frontend\UserProductReviewController;
 use Illuminate\Support\Facades\Route;
 

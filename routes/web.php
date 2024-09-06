@@ -8,10 +8,12 @@ use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\CheckOutController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserOrderController;
+use App\Http\Controllers\Frontend\UserVendorRequestController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +68,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('wishlist/add-product', [WishlistController::class, 'addToWishList'])->name('wishlist.store');
     Route::get('wishlist/remove-product/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
+    /** Vendor Request route */
+    Route::get('vendor-request', [UserVendorRequestController::class, 'index'])->name('vendor-request.index');
+    Route::post('vendor-request', [UserVendorRequestController::class, 'create'])->name('vendor-request.create');
+
     /** Product Review Routes */
     Route::post('review', [ReviewController::class, 'create'])->name('review.create');
 
@@ -96,3 +102,7 @@ Route::get('coupon-calculation', [CartController::class, 'couponCalculation'])->
 /** Newsletter Routes */
 Route::post('newsletter-request', [NewsletterController::class, 'newsLetterRequest'])->name('newsletter-request');
 Route::get('newsletter-verify/{token}', [NewsletterController::class, 'newsLetterEmailVerify'])->name('newsletter-verify');
+
+/** Vendor page routes */
+Route::get('vendor', [App\Http\Controllers\Frontend\HomeController::class, 'vendorPage'])->name('vendor.index');
+Route::get('vendor-product/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'vendorProductPage'])->name('vendor.products');

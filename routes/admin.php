@@ -29,6 +29,7 @@ use App\Http\Controllers\Backend\Admin\SliderController;
 use App\Http\Controllers\Backend\Admin\SubCategoryController;
 use App\Http\Controllers\Backend\Admin\SubscribersController;
 use App\Http\Controllers\Backend\Admin\TransactionController;
+use App\Http\Controllers\Backend\Admin\VendorRequestController;
 use Illuminate\Support\Facades\Route;
 
 /** Admin Routes */
@@ -137,6 +138,11 @@ Route::put('advertisement/homepage-banner-section-three', [AdvertisementControll
 Route::put('advertisement/homepage-banner-section-four', [AdvertisementController::class, 'homepageBannerSectionFour'])->name('homepage-banner-section-four');
 Route::put('advertisement/productpage-banner', [AdvertisementController::class, 'productPageBanner'])->name('productpage-banner');
 Route::put('advertisement/cartpage-banner', [AdvertisementController::class, 'cartPageBanner'])->name('cartpage-banner');
+
+/** Vendor Request routes */
+Route::get('vendor-requests', [VendorRequestController::class, 'index'])->name('vendor-requests.index');
+Route::get('vendor-requests/{id}/show', [VendorRequestController::class, 'show'])->name('vendor-requests.show');
+Route::put('vendor-requests/{id}/change-status', [VendorRequestController::class, 'changeStatus'])->name('vendor-requests.change-status');
 
 /** Footer Routes */
 Route::put('footer-socials/change-status', [FooterSocialController::class, 'footerSocialChangeStatus'])->name('footer-socials.change-status');

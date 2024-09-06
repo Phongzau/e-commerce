@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Vendor;
 
 use App\DataTables\VendorProductReviewsDataTable;
 use App\Http\Controllers\Controller;
