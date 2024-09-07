@@ -86,6 +86,11 @@ Route::get('about', [PageController::class, 'index'])->name('about.index');
 /** Terms and conditions page route */
 Route::get('terms-and-condition', [PageController::class, 'termsAndCondition'])->name('terms-and-condition');
 
+/** About page Routes */
+Route::get('contact', [PageController::class, 'contact'])->name('contact');
+Route::post('contact', [PageController::class, 'handleContactForm'])->name('handle-contact-form');
+
+
 
 /** Product Routes */
 Route::get('products', [FrontendProductController::class, 'productsIndex'])->name('products.index');
