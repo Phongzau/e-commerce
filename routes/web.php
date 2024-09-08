@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\ProductTrackController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserOrderController;
 use App\Http\Controllers\Frontend\UserVendorRequestController;
@@ -90,7 +91,8 @@ Route::get('terms-and-condition', [PageController::class, 'termsAndCondition'])-
 Route::get('contact', [PageController::class, 'contact'])->name('contact');
 Route::post('contact', [PageController::class, 'handleContactForm'])->name('handle-contact-form');
 
-
+/** Product track route */
+Route::get('product-tracking', [ProductTrackController::class, 'index'])->name('product-tracking.index');
 
 /** Product Routes */
 Route::get('products', [FrontendProductController::class, 'productsIndex'])->name('products.index');
