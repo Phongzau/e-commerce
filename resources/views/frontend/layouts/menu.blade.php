@@ -148,7 +148,7 @@
                                 <li><a href="brands.html">brands</a></li>
                             </ul>
                         </li>
-                        <li><a href="track_order.html">track order</a></li>
+                        <li><a href="{{ route('product-tracking.index') }}">track order</a></li>
                         <li><a href="daily_deals.html">daily deals</a></li>
                         <li><a href="{{ route('about.index') }}">about</a></li>
                         <li><a href="{{ route('terms-and-condition') }}">term and condition</a></li>
