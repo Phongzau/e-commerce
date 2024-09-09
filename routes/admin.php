@@ -6,6 +6,8 @@ use App\Http\Controllers\Backend\Admin\AdminListController;
 use App\Http\Controllers\Backend\Admin\AdminProductReviewController;
 use App\Http\Controllers\Backend\Admin\AdminVendorController;
 use App\Http\Controllers\Backend\Admin\AdvertisementController;
+use App\Http\Controllers\Backend\Admin\BlogCategoryController;
+use App\Http\Controllers\Backend\Admin\BlogController;
 use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
@@ -118,12 +120,10 @@ Route::put('flash-sale/show-at-home/change-status', [FlashSaleController::class,
 Route::put('flash-sale/change-status', [FlashSaleController::class, 'changeStatus'])->name('flash-sale.change-status');
 Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name('flash-sale.destroy');
 
-
 /** Setting Routes */
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting-update');
 Route::put('email-setting-update', [SettingController::class, 'emailConfigSettingUpdate'])->name('email-setting-update');
-
 
 /** Home page setting routes */
 Route::get('home-page-setting', [HomePageSettingController::class, 'index'])->name('home-page-setting');
@@ -131,6 +131,13 @@ Route::put('popular-category-section', [HomePageSettingController::class, 'updat
 Route::put('product-slider-section-one', [HomePageSettingController::class, 'updateProductSliderSectionOne'])->name('product-slider-section-one');
 Route::put('product-slider-section-two', [HomePageSettingController::class, 'updateProductSliderSectionTwo'])->name('product-slider-section-two');
 Route::put('product-slider-section-three', [HomePageSettingController::class, 'updateProductSliderSectionThree'])->name('product-slider-section-three');
+
+/** Blog routes */
+Route::put('blog-category/change-status', [BlogCategoryController::class, 'changeStatus'])->name('blog-category.change-status');
+Route::resource('blog-category', BlogCategoryController::class);
+
+Route::put('blog/change-status', [BlogController::class, 'changeStatus'])->name('blog.change-status');
+Route::resource('blog', BlogController::class);
 
 /** Subscribers Routes */
 Route::get('subscribers', [SubscribersController::class, 'index'])->name('subscribers.index');
