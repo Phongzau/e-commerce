@@ -119,6 +119,7 @@ class BlogController extends Controller
     {
         $blog = Blog::query()->findOrFail($id);
         $this->deleteImage($blog->image);
+        $blog->comments()->delete();
         $blog->delete();
 
         return response([

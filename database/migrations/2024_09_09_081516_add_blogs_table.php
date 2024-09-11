@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('blogs', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id')->after('user_id');
-            $table->string('seo_title')->after('description');
-            $table->string('seo_description')->after('seo_title');
+            $table->string('seo_title')->after('description')->nullable();
+            $table->string('seo_description')->after('seo_title')->nullable();
 
             $table->foreign('category_id')->references('id')->on('blog_categories')->onDelete('cascade');
         });

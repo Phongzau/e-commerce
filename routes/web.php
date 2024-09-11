@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontendProductController;
@@ -79,6 +80,9 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 
     /** User product review */
     Route::get('reviews', [ReviewController::class, 'index'])->name('review.index');
+
+    /** Blog comment route */
+    Route::post('blog-comment', [BlogController::class, 'comment'])->name('blog.comment');
 });
 
 /** About page Routes */
@@ -93,6 +97,11 @@ Route::post('contact', [PageController::class, 'handleContactForm'])->name('hand
 
 /** Product track route */
 Route::get('product-tracking', [ProductTrackController::class, 'index'])->name('product-tracking.index');
+
+/** Blog route */
+Route::get('blog-details/{slug}', [BlogController::class, 'blogDetails'])->name('blog-details');
+Route::get('blog', [BlogController::class, 'blog'])->name('blog');
+
 
 /** Product Routes */
 Route::get('products', [FrontendProductController::class, 'productsIndex'])->name('products.index');
