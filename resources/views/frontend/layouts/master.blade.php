@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <title>Sazao || e-Commerce HTML Template</title>
-    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset($logoSetting->favicon) }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/select2.min.css') }}">
@@ -26,7 +26,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <!-- <link rel="stylesheet" href="css/rtl.css"> -->
+
+    @if ($settings->layout === 'RTL')
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/rtl.css') }}">
+    @endif
 </head>
 
 <body>

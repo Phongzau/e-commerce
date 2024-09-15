@@ -27,7 +27,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.0/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
-    <!-- <link rel="stylesheet" href="css/rtl.css"> -->
+
+    @if ($settings->layout === 'RTL')
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/rtl.css') }}">
+    @endif
 </head>
 
 <body>
