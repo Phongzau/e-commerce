@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Admin\BlogController;
 use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
+use App\Http\Controllers\Backend\Admin\CodSettingController;
 use App\Http\Controllers\Backend\Admin\CouponController;
 use App\Http\Controllers\Backend\Admin\CustomerListController;
 use App\Http\Controllers\Backend\Admin\FlashSaleController;
@@ -220,3 +221,4 @@ Route::get('transaction', [TransactionController::class, 'index'])->name('transa
 /** Payment Setting Routes */
 Route::get('payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');
 Route::resource('paypal-setting', PaypalSettingController::class);
+Route::put('cod-settings/{id}', [CodSettingController::class, 'update'])->name('cod-settings.update');

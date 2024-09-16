@@ -81,8 +81,16 @@
                         <li><a class="{{ setActive(['product-tracking.index']) }}"
                                 href="{{ route('product-tracking.index') }}">track
                                 order</a></li>
-                        @if (auth()->check())
+                        @if (auth()->check() && auth()->user()->role_id === 3)
                             <li><a class="{{ setActive(['user.dashboard']) }}" href="{{ route('user.dashboard') }}">my
+                                    account</a></li>
+                        @elseif(auth()->check() && auth()->user()->role_id === 2)
+                            <li><a class="{{ setActive(['vendor.dashboard']) }}"
+                                    href="{{ route('vendor.dashboard') }}">my
+                                    account</a></li>
+                        @elseif(auth()->check() && auth()->user()->role_id === 1)
+                            <li><a class="{{ setActive(['admin.dashboard']) }}"
+                                    href="{{ route('admin.dashboard') }}">my
                                     account</a></li>
                         @else
                             <li><a class="{{ setActive(['login']) }}" href="{{ route('login') }}">login</a></li>

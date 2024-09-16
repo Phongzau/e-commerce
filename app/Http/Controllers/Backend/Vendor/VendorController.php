@@ -31,10 +31,26 @@ class VendorController extends Controller
             $query->where('vendor_id', Auth::user()->vendor->id);
         })->count();
         $totalProducts = Product::query()->where('vendor_id', Auth::user()->vendor->id)->count();
-        $todaysEarnings = OrderProduct::query()->where('created_at', Carbon::today())->where('vendor_id', Auth::user()->vendor->id)->sum('unit_price');
-        $monthEarnings = OrderProduct::query()->where('created_at', Carbon::now()->month)->where('vendor_id', Auth::user()->vendor->id)->sum('unit_price');
-        $yearEarnings = OrderProduct::query()->where('created_at', Carbon::now()->year)->where('vendor_id', Auth::user()->vendor->id)->sum('unit_price');
-        $totalEarnings = OrderProduct::query()->where('vendor_id', Auth::user()->vendor->id)->sum('unit_price');
+        $todaysEarnings = OrderProduct::query()->where('created_at', Carbon::today())
+            ->whereHas('order', function ($query) {
+                $query->where('payment_status', 1);
+            })
+            ->where('vendor_id', Auth::user()->vendor->id)->sum('unit_price');
+        $monthEarnings = OrderProduct::query()->where('created_at', Carbon::now()->month)
+            ->whereHas('order', function ($query) {
+                $query->where('payment_status', 1);
+            })
+            ->where('vendor_id', Auth::user()->vendor->id)->sum('unit_price');
+        $yearEarnings = OrderProduct::query()->where('created_at', Carbon::now()->year)
+            ->whereHas('order', function ($query) {
+                $query->where('payment_status', 1);
+            })
+            ->where('vendor_id', Auth::user()->vendor->id)->sum('unit_price');
+        $totalEarnings = OrderProduct::query()->where('vendor_id', Auth::user()->vendor->id)
+            ->whereHas('order', function ($query) {
+                $query->where('payment_status', 1);
+            })
+            ->sum('unit_price');
         $totalReview = ProductReview::query()->whereHas('product', function ($query) {
             $query->where('vendor_id', Auth::user()->vendor->id);
         })->count();
