@@ -9,7 +9,8 @@
                 <li><a class="{{ setActive(['vendor.dashboard']) }}" href="{{ route('vendor.dashboard') }}"><i
                             class="fas fa-tachometer"></i>Dashboard</a>
                 </li>
-
+                <li><a href="{{ url('/') }}"><i class="fas fa-home"></i>Go to Home</a>
+                </li>
                 <li><a class="{{ setActive(['vendor.orders']) }}" href="{{ route('vendor.orders') }}"><i
                             class="fas fa-shopping-cart"></i> Orders</a>
                 </li>

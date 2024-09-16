@@ -75,7 +75,7 @@
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
-                                    <a class="wsus__dashboard_item red" href="javascript:;">
+                                    <a class="wsus__dashboard_item red" href="{{ route('vendor.orders') }}">
                                         <i class="fas fa-shopping-cart"></i>
                                         <p>This Total Earning</p>
                                         <h4 style="color: #ffff">{{ $settings->currency_icon }}{{ $totalEarnings }}</h4>
